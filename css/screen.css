@@ -1,0 +1,266 @@
+body{margin: 0; padding: 0; font-size: 14px; min-width: 600px;}
+/* body{margin: 0; padding: 0; font-size: 14px; min-width: 600px; font-family: Arial, Helvetica, sans-serif;} */
+/* body{margin: 0; padding: 0; font-size: 14px; min-width: 600px; font-family: "Lucida Console", Monaco, monospace;} */
+/* body{margin: 0; padding: 0; font-size: 14px; min-width: 600px; font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;} */
+/* Header */
+#header {position: fixed; top: 0; width: 100%; z-index: 1; overflow: hidden; padding-bottom: 3px; background-color: white;}
+#header a.logout {float: right; color: black; text-align: center; padding: 10px; text-decoration: none;}
+#header a:hover {background-color: #87CEFA; color: black;}
+#header_left {display: inline-block;}
+#header_middle {display: inline-block; vertical-align: top; padding-bottom: 10px;}
+#header_middle h4 {margin-bottom: 0;}
+#header_middle table {margin-top: 10px;}
+#header_right {float: right; margin-right: 20px;}
+#logo_image {width: 80px;}
+#month_select {margin: 0;}
+#month_select select {font-size: 1em;}
+#year_select {margin: 0;}
+#year_select select {font-size: 1em;}
+#name_link {color: black;}
+/* Navigation */
+.navigation {overflow: hidden; background-color: #4f81bc; margin: 0; padding: 5px;}
+.navigation a {float: left; color: white; text-align: center; padding: 0 10px 0 10px; text-decoration: none; font-size: 1em;}
+.navigation a:hover {background-color: #87CEFA; color: black;}
+#content{width: 100%; min-height: 700px; margin-top: 112px;}
+/* Dashboard */
+.dash_links{color: black;}
+#left-side {width: 50%; min-width: 600px; margin-bottom: 50px; border-right: 1px solid #4f81bc; display: inline-block; min-height: 500px; position: relative;}
+#upcoming_events {width: 95%; max-height: 200px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
+#upcoming_table {width: 95%; margin: 20px auto; border-collapse: collapse;}
+#upcoming_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#upcoming_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#upcoming_table img {width: 20px;}
+#left_graphs {width: 95%; text-align: center; padding-top: 20px;}
+#YTD_graph {height: 220px; width: 350px; display: inline-block;}
+#income_graph {height: 220px; width: 300px; display: inline-block;}
+#recent_activities {width: 50%; margin: 20px auto 10px auto; padding: 10px; overflow-y:auto;}
+#activity_table {width: 95%; margin: 10px auto; border-collapse: collapse;}
+#activity_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#activity_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#activity_table img {width: 20px;}
+#contact_activities_dash {width: 95%; height: 220px; margin: 10px auto 20px auto; padding: 10px; overflow-y:auto;}
+#contact_table_dash {width: 95%; margin: 10px auto; border-collapse: collapse;}
+#contact_table_dash th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#contact_table_dash td {border-bottom: 1px solid #4f81bc; max-width: 150px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#contact_table_dash img {width: 20px;}
+#right-side {width: 49%; min-width: 400px; min-height: 500px; vertical-align: top; display: inline-block; position: relative;}
+#income {width: 95%; height: 140px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
+#income_table {width: 100%; margin-top: 20px; border-collapse: collapse;}
+#income_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#income_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#income img {width: 20px;}
+#right_graphs {width: 95%; text-align: center;}
+#bill_graph {height: 220px; width: 350px; display: inline-block;}
+#bill_breakdown {width: 95%; height: 220px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
+#breakdown_table {width: 95%; margin: 20px auto; border-collapse: collapse;}
+#breakdown_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#breakdown_table td {border-bottom: 1px solid #4f81bc;}
+#breakdown_table img {width: 20px;}
+/* Ledger */
+#ledger_top {width: 95%; min-width: 400px; padding: 20px;}
+#ledger_graph {float: right; height: 250px; width: 400px;}
+#ledger_form {border-bottom: 1px solid #4f81bc; width: 70%; min-width: 400px; padding-bottom: 20px;}
+#ledger_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#ledger_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#ledger_form select {font-size: 1em;}
+#ledger_form label {margin: 10px; vertical-align: center;}
+#ledger_textarea {font-size: 1em; background-color: #F0F0F0; border: none; vertical-align: bottom; resize: none;}
+#ledgertype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#ledgerpaidtype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#ledger_bottom {width: 95%; min-width: 400px; padding: 20px; clear: both;}
+#Yledger_TD_graph {height: 220px; width: 350px; float: right;}
+#ledger_activity_table {width: 90%; margin: 0 auto; border-collapse: collapse;}
+#ledger_activity_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#ledger_activity_table td {border-bottom: 1px solid #4f81bc; max-width: 200px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#ledger_activity_table img {width: 20px;}
+#ledger_edit button{border: none; background-color: white;}
+#ledger_delete button{border: none; background-color: white;}
+/* Income */
+#income_add {width: 90%; min-width: 600px; padding: 10px 30px 10px 30px; border-bottom: 1px solid #4f81bc;}
+#income_graph {float: right; height: 270px; width: 350px;} 
+#income_form {width: 60%; }
+#income_form input[type=text], input[type=number], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_form select {font-size: 1em;}
+#incomesource {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_notes {font-size: 1em; background-color: #F0F0F0; border: none; vertical-align: bottom; resize: none;}
+#income_activity {width: 90%; padding: 10px 30px 10px 30px; overflow-y:auto;}
+#income_activity_table {width: 60%; min-width: 600px; padding: 10px; border-collapse: collapse;}
+#income_activity_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
+#income_activity_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#income_activity img {width: 20px;}
+#income_edit button{border: none; background-color: white;}
+#income_delete button{border: none; background-color: white;}
+/* Payments */
+#payment_sidenav {position: fixed; top: 0; left: 0; margin-top: 111px; width: 19%; min-width: 200px; height: 600px; padding-left: 20px; overflow-y:auto;}
+#payment_side_links input{width: 190px; max-width: 200px; padding: 7px; font-size: 1em; background-color: white; border: none; text-decoration: none; color: black; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#payment_side_links input:hover {color: black; background-color: #F0F0F0;}
+#payment_sidenav ul {list-style-type: none;}
+#payment_main {width: 80%; min-width: 400px; margin-left: 19%; border-left: 1px solid #4f81bc; display: inline-block;}
+#payment_top {width: 100%; min-width: 400px;}
+#payment_image img{float: right; width: 10%;}
+#payment_type {float: right; font-size: 2.5em; margin-right: 10px;}
+#payment {float: left; width: 95%; min-width: 400px; margin-bottom: 50px; padding: 20px;}
+#payment_account_table {width: 400px; border-collapse: collapse;}
+#payment_account_table th{text-align: left; padding: 5px;}
+#payment_account_table td{padding: 5px; background-color: #F0F0F0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#payment_form {width: 50%; min-width: 400px; padding:0;}
+#payment_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_form select {font-size: 1em;}
+#payment_form label {margin: 10px; vertical-align: center;}
+#paidtype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_activity{width: 95%; min-width: 400px; margin-top: 25px; padding: 20px;}
+#payment_bottom {width: 100%; min-width: 400px;}
+#YTD_graph {height: 220px; width: 350px; float: right;}
+#pay_activity_table {width: 60%; border-collapse: collapse;}
+#pay_activity_table th {border-bottom: 1px solid #4f81bc;}
+#pay_activity_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#pay_activity_table img {width: 20px;}
+#payment_edit button{border: none; background-color: white;}
+#payment_delete button{border: none; background-color: white;}
+#payment_print button{border: none; background-color: white;}
+#payment_envelope button{border: none; background-color: white;}
+/* Contact */
+#contact_sidenav {position: fixed; top: 0 ; left: 0; margin-top: 111px; width: 19%; min-width: 200px; height: 600px; padding-left: 20px; overflow-y:auto;}
+#contact_side_links input{width: 200px; max-width: 200px; padding: 7px; font-size: 1em; background-color: white;  border: none; text-decoration: none; color: black; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#contact_side_links input:hover {color: black; background-color: #F0F0F0;}
+#contact_sidenav ul {list-style-type: none;}
+#contact_main {width: 79%; min-width: 400px; margin-left: 19%; padding-bottom: 30px; border-left: 1px solid #4f81bc; display: inline-block;}
+#contact_account {float: left; width: 95%; min-width: 400px; margin: 0 auto; padding: 20px;}
+#contact_account_image img{float: right; width: 10%;}
+#contact_account_type {float: right; font-size: 2.5em; margin-right: 10px;}
+#contact_account_table {width: 400px; border-collapse: collapse; margin-bottom: 20px;}
+#contact_account_table th{text-align: left; padding: 5px;}
+#contact_account_table td{padding: 5px; background-color: #F0F0F0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#contact_add {width: 95%;  min-width: 400px; margin: 0 auto; padding: 10px; border-top: 1px solid #4f81bc;}
+#contact_add_form {min-width: 400px;}
+#contact_add_form input[type=text], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_add_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_add_form select {font-size: 1em; padding: 5px; margin: 5px; }
+#contact_add_form label {margin: 10px; vertical-align: center;}
+#contactnotes {font-size: 1em; background-color: #F0F0F0; border: none; vertical-align: bottom; resize: none;}
+#contact_account_info {width: 95%; padding: 10px; border-bottom: 1px solid #4f81bc;}
+#contact_account_add {width: 95%; padding: 10px; border-bottom: 1px solid #4f81bc;}
+#contact_type_table {width: 50%; min-width: 400px;}
+#contact_type_table td {width: 100px;}
+#contact_type_table input {margin: 5px;}
+#contact_type {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_result {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#future_contact {width: 95%; min-width: 400px; margin: 0 auto; padding: 10px; border-top: 1px solid #4f81bc;}
+#future_contact_form {min-width: 400px;}
+#future_contact_form input[type=text], input[type=number], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#future_contact_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#future_contact  select {font-size: 1em; padding: 5px; margin: 5px; }
+#futurenotes {font-size: 1em; background-color: #F0F0F0; border: none; vertical-align: bottom; resize: none;}
+#contact_notes {margin-bottom: 20px; background-color: #F0F0F0; border: none;}
+#futuretype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_activities {width: 95%; height: 200px; margin: 20px; padding: 10px; overflow-y:auto; border-top: 1px solid #4f81bc;}
+#contact_table {width: 95%; margin: 0 auto; border-collapse: collapse;}
+#contact_table th {text-align: left; border-bottom: 1px solid #4f81bc; }
+#contact_table td {border-bottom: 1px solid #4f81bc; max-width: 125px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#contact_table img {width: 20px;}
+#contact_edit button{border: none; background-color: white;}
+#contact_delete button{border: none; background-color: white;}
+/* DeleteContactConfirm */
+#contact_delete {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#contact_delete_image img{float: right; width: 10%;}
+#contact_delete_type {float: right; font-size: 2em; margin-right: 10px;}
+#contact_deleteimg{width: 20px;}
+#contact_del_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px;}
+#contact_del_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_del_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_del_form select {font-size: 1em;}
+#contact_del_form label {margin: 10px;}
+#contact_delete_cancel {color: black; float: right; margin-right: 20px;}
+/* DeleteIncomeConfirm */
+#income_delete {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#income_delete_image img{float: right; width: 10%;}
+#income_delete_type {float: right; font-size: 2em; margin-right: 10px;}
+#income_deleteimg{width: 20px;}
+#income_del_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px; }
+#income_del_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_del_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_del_form select {font-size: 1em;}
+#income_del_form label {margin: 10px;}
+#income_delete_cancel {color: black; float: right; margin-right: 20px;}
+/* DeletePayConfirm */
+#payment_delete {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#payment_delete_image img{float: right; width: 10%;}
+#payment_delete_type {float: right; font-size: 2em; margin-right: 10px;}
+#deleteimg{width: 20px;}
+#payment_del_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px;}
+#payment_del_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_del_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_del_form select {font-size: 1em;}
+#payment_del_form label {margin: 10px;}
+#deletecancel {color: black; float: right; margin-right: 20px;}
+/* EditContact */
+#contact_edit {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#contact_edit_image img{float: right; width: 10%;}
+#contact_edit_name {float: right; font-size: 2em; margin-right: 10px;}
+#contact_editimg{width: 20px;}
+#contact_edit_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px;}
+#contact_edit_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_edit_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contact_edit_form select {font-size: 1em;}
+#contact_edit_form label {margin: 10px;}
+#contactupdatetype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contactupdateresult {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contactedittype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contacteditresult {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#contactupdatecancel {color: black; float: right; margin-right: 20px;}
+/* EditIncome */
+#income_edit {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#income_edit_image img{float: right; width: 10%;}
+#income_edit_name {float: right; font-size: 2em; margin-right: 10px;}
+#income_editimg{width: 20px;}
+#income_edit_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px;}
+#income_edit_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_edit_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#income_edit_form select {font-size: 1em;}
+#income_edit_form label {margin: 10px;}
+#incomeedittype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#incomeupdatecancel {color: black; float: right; margin-right: 20px;}
+/* EditPayment */
+#payment_edit {border-top: 1px solid #4f81bc; border-bottom: 1px solid #4f81bc; width: 40%; margin: 200px auto 0 auto; padding: 10px;}
+#payment_edit_image img{float: right; width: 10%;}
+#payment_edit_type {float: right; font-size: 2em; margin-right: 10px;}
+#editimg{width: 20px;}
+#payment_edit_form {width: 90%; min-width: 400px; margin: 0 auto 0 auto; padding: 20px;}
+#payment_edit_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_edit_form input[type=date]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#payment_edit_form select {font-size: 1em;}
+#payment_edit_form label {margin: 10px; vertical-align: center;}
+#editnotes {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none; vertical-align: bottom; resize: none;}
+#edittype {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#updatecancel {color: black; float: right; margin-right: 20px;}
+/* Settings */
+#settings_side_nav {position: fixed; top: 0; left: 0; margin-top: 111px; width: 17.5%; min-width: 200px; height: 500px; padding-left: 20px; border-right: 1px solid #4f81bc; overflow-y:auto;}
+#settings_side_links input{text-align: left; width: 190px; max-width: 200px; padding: 7px; font-size: 1em; background-color: white; border: none; text-decoration: none; color: black; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#settings_side_links input:hover {color: black; background-color: #F0F0F0;}
+#settings_side_nav ul {list-style-type: none;}
+#settings_main {width: 80%; min-width: 400px; margin-left: 19%; display: inline-block;}
+#account_info {width: 95%; padding: 20px; border-bottom: 1px solid #4f81bc;}
+#account_add_form {width: 100%;}
+#account_add_form input[type=text], input[type=number], input[type=list], input[type=email], input[type=date], input[type=time], input[type=phone]{padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#account_add_form select {font-size: 1em;}
+#account_add_form label {margin: 10px; vertical-align: center;}
+#account_category_add {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#account_type_add {padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#account_duedate_add {width: 75px; padding: 5px; margin: 5px; font-size: 1em; background-color: #F0F0F0; border: none;}
+#accounts {width: 95%; padding: 20px;}
+#accounts_table {width: 100%;border-collapse: collapse; text-align: left;}
+#accounts_table th {border-bottom: 1px solid #4f81bc;}
+#accounts_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#accounts_table img {width: 20px;}
+#account_edit button{border: none; background-color: white;}
+#account_delete button{border: none; background-color: white;}
+#personal_info_table {width: 60%; border-collapse: collapse; margin: 50px; text-align: left;}
+#personal_info_table th {border-bottom: 1px solid #4f81bc;}
+#personal_info_table td {border-bottom: 1px solid #4f81bc; padding: 2px; text-align: center;}
+#personal_info_table img {width: 20px;}
+#job_info_table {width: 60%; border-collapse: collapse; margin: 50px; text-align: left;}
+#job_info_table th {border-bottom: 1px solid #4f81bc;}
+#job_info_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
+#job_info_table img {width: 20px;}
