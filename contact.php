@@ -1,4 +1,4 @@
-<?php
+<?PHP 
 include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 // this creates a future contact
@@ -89,20 +89,20 @@ function display_form(){
     while($data = $results->fetch()){
     ?>
         <section id="contact_account"> 
-            <div id="contact_account_image"><img src="media/companies/<? echo $data['accountName']?>.png"></div>
-            <div id="contact_account_type"><? echo $data['accountName']?></div><br>
+            <div id="contact_account_image"><img src="media/companies/<?PHP echo $data['accountName']; ?>.png"></div>
+            <div id="contact_account_type"><?PHP echo $data['accountName']; ?></div><br>
             <table id="contact_account_table">
                 <h3>Add Contact (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h3>
                 <tr><th>Name</th><th>Phone</th></tr>
-                <tr><td style="width: 100px; max-width: 100px; "><? echo $data['accountName']?></td><td style="width: 50px; max-width: 50px; "><? echo $data['accountPhone']?></td></tr>
+                <tr><td style="width: 100px; max-width: 100px; "><?PHP echo $data['accountName']; ?></td><td style="width: 50px; max-width: 50px; "><?PHP echo $data['accountPhone']; ?></td></tr>
                 <tr><th>Payment</th><th>Due Date</th></tr>
-                <tr><td>$<? echo $data['accountPayment']?></td><td><? echo $data['accountDueDate']?></td></tr>
+                <tr><td>$<?PHP echo $data['accountPayment']; ?></td><td><?PHP echo $data['accountDueDate']; ?></td></tr>
             </table> 
         </section>    
         <section id="contact_add">  
             <form id="contact_add_form" name="contact_add_form" action="" method="POST">
-                <input type="hidden" name="accountcategory" value="<? echo $data['accountCategory']?>">
-                <input type="hidden" name="accountname" value="<? echo $data['accountName']?>">
+                <input type="hidden" name="accountcategory" value="<?PHP echo $data['accountCategory']; ?>">
+                <input type="hidden" name="accountname" value="<?PHP echo $data['accountName']; ?>">
                 <table>
                     <tr>
                     <td>Type <span style="color: red;">*</span></td>
@@ -122,7 +122,7 @@ function display_form(){
                         </select></td>
                     </tr>
                     <tr>
-                        <td>Date <span style="color: red;">*</span></td><td><input type="date" name="contactdate" value="<?php echo $CURRENT_DATE;?>" required></td>
+                        <td>Date <span style="color: red;">*</span></td><td><input type="date" name="contactdate" value="<?PHP echo $CURRENT_DATE; ?>" required></td>
                         <td>Time <span style="color: red;">*</span></td><td><input type="time" name="contacttime" required></td>
                     </tr>
                     <tr>
@@ -136,9 +136,9 @@ function display_form(){
         <section id="future_contact">
             <h3>Future Contact (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h3>
             <form id="future_contact_form" name="future_contact__form" action="" method="POST">
-                <input type="hidden" name="futurecategory" value="<? echo $data['accountCategory']?>">
-                <input type="hidden" name="futureaccounttype" value="<? echo $data['accountType']?>">
-                <input type="hidden" name="futureaccountname" value="<? echo $data['accountName']?>"><br>
+                <input type="hidden" name="futurecategory" value="<?PHP echo $data['accountCategory']; ?>">
+                <input type="hidden" name="futureaccounttype" value="<?PHP echo $data['accountType']; ?>">
+                <input type="hidden" name="futureaccountname" value="<?PHP echo $data['accountName']; ?>"><br>
                 <table>
                     <tr>
                         <td>Contact Type <span style="color: red;">*</span></td>
@@ -152,7 +152,7 @@ function display_form(){
                         </td>
                     </tr>
                     <tr>
-                        <td>Date <span style="color: red;">*</span></td><td><input type="date" name="futuredate" value="<?php echo $CURRENT_DATE;?>" required></td>
+                        <td>Date <span style="color: red;">*</span></td><td><input type="date" name="futuredate" value="<?PHP echo $CURRENT_DATE; ?>" required></td>
                         <td>Time <span style="color: red;">*</span></td><td><input type="time" name="futuretime" required></td>
                     </tr>
                     <tr>
@@ -213,4 +213,5 @@ function display_form(){
 </section>
 <?PHP
 }
+include("includes/footer.php");
 ?>

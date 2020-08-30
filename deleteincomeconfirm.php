@@ -19,17 +19,17 @@
         ?>
         <section id="income_delete">
             <div id="income_delete_image"><img src="media/Income.png"></div>
-            <div id="income_delete_type"><? echo $data['incomeSource']?></div><br>       
+            <div id="income_delete_type"><?PHP echo $data['incomeSource']; ?></div><br>       
             <h3><img id="income_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete INCOME?</h3>
             <form id="income_del_form" name="income_delete" action="deleteincomeconfirm.php" method="POST">
-                <input type="hidden" name="incomedeleteID" value="<? echo $_SESSION['incomedeleteID']?>">
+                <input type="hidden" name="incomedeleteID" value="<?PHP echo $_SESSION['incomedeleteID']; ?>">
                 <table>
                     <tr>
-                        <td>Date</td><td colspan="3"><input type="date" name="deletedate" value="<? echo $data['incomeDate']?>" disabled="disabled"></td>
+                        <td>Date</td><td colspan="3"><input type="date" name="deletedate" value="<?PHP echo $data['incomeDate']; ?>" disabled="disabled"></td>
                     </tr>
                     <tr>
-                        <td>Gross</td><td><input type="number" name="deletegross" value="<? echo $data['incomeGross']?>" disabled="disabled"></td>
-                        <td>Net</td><td><input type="number" name="deletenet" value="<? echo $data['incomeNet']?>" disabled="disabled"></td>
+                        <td>Gross</td><td><input type="number" name="deletegross" value="<?PHP echo $data['incomeGross']; ?>" disabled="disabled"></td>
+                        <td>Net</td><td><input type="number" name="deletenet" value="<?PHP echo $data['incomeNet']; ?>" disabled="disabled"></td>
                     </tr>
                     <tr><td colspan="4"><input type="submit" class="button_red" name="incomedeletesubmit" value="Delete Income"></td></tr>
                     
@@ -37,7 +37,8 @@
                 <a href="income.php" class="button_green"  id="income_delete_cancel">Cancel</a>
             </form>
         </section>
-        <?
+        <?PHP
         }
-    };
+	};
+	include("includes/footer.php");
     ?>

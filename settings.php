@@ -1,4 +1,4 @@
-<?
+<?PHP
 include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 ?>
@@ -22,7 +22,7 @@ $current_user =  $_SESSION['userID'];
     </li>
 </ul>
 </section>
-<?
+<?PHP
 // this sets the session variable from the side nav bar
 if (isset($_POST['personalsidesubmit'])){
     $_SESSION['settings_display_id'] = "Personal";
@@ -86,7 +86,7 @@ else if (isset($_POST['accountdeleteID'])){
 
 }
 ?>
-<?
+<?PHP
 function personal_display(){
     require('includes/db_conn.php');
     $current_user =  $_SESSION['userID'];
@@ -94,7 +94,7 @@ function personal_display(){
     <section id="settings_main">
         <table id="personal_info_table">
         <tr><th>First Name</th><th>Last Name</th><th>Birth Date</th><th>Email</th><th>Password</th></tr>
-        <?
+        <?PHP
         $results = $conn->query("SELECT * FROM `personal` WHERE `userID` = '$current_user';");
         while($data = $results->fetch()){
             $firstName = $data['firstName'];
@@ -106,7 +106,7 @@ function personal_display(){
         };?>
         </table>
     </section>
-<?
+<?PHP
 }
 function job_display(){
     require('includes/db_conn.php');
@@ -115,7 +115,7 @@ function job_display(){
     <section id="settings_main">
         <table id="job_info_table">
         <tr><th>Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Phone</th><th>Start Date</th></tr>
-        <?
+        <?PHP
         $results = $conn->query("SELECT * FROM `employment` WHERE `userID` = '$current_user';");
         while($data = $results->fetch()){
             $companyName = $data['companyName'];
@@ -129,7 +129,7 @@ function job_display(){
         };?>
         </table>
     </section>
-<?
+<?PHP
 }
 function account_add_form(){
     require('includes/db_conn.php');
@@ -214,38 +214,39 @@ function account_add_form(){
         </section>
         <section id="accounts">
             <h3>Current Accounts</h3>
-                <table id="accounts_table">
-                    <tr><th>Category</th><th></th><th>Type</th><th></th><th>Name</th><th>Acct Number</th><th>Payment</th><th>Day Due</th><th></th></tr>
-                    <?PHP
-                        $results = $conn->query("SELECT * FROM `account` WHERE `userID` = '$current_user' ORDER BY `accountDueDate`;");
-                        while($data = $results->fetch()){
-                            $accountID = $data['accountID'];
-                            $accountCategory = $data['accountCategory'];
-                            $accountType = $data['accountType'];
-                            $accountName = $data['accountName'];
-                            $accountNumber = $data['accountNumber'];
-                            $accountPayment = $data['accountPayment'];
-                            $accountDueDate = $data['accountDueDate'];
-                            if ($accountPayment == NULL){
-                                $accountSymbol = '';
-                            }
-                            else{
-                                $accountSymbol = "$";
-                            }
-                            echo "<tr>
-                                    <td>$accountCategory</td><td><img src=\"media/$accountType.png\"></td><td>$accountType</td><td><img src=\"media/companies/$accountName.png\"></td><td>$accountName</td><td>$accountNumber</td><td>$accountSymbol $accountPayment</td><td style=\"text-align: center;\">$accountDueDate</td>
-                                    <td>
-                                        <form id=\"account_delete\" name=\"account_delete\" action=\"\" method=\"POST\">
-                                            <input type=\"hidden\" name=\"accountdeleteID\" value=\"$accountID\">
-                                            <button><img src=\"media/delete.ico\"></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                </tr>";
-                        };?>
-                </table>
+			<table id="accounts_table">
+				<tr><th>Category</th><th></th><th>Type</th><th></th><th>Name</th><th>Acct Number</th><th>Payment</th><th>Day Due</th><th></th></tr>
+				<?PHP
+				$results = $conn->query("SELECT * FROM `account` WHERE `userID` = '$current_user' ORDER BY `accountDueDate`;");
+				while($data = $results->fetch()){
+					$accountID = $data['accountID'];
+					$accountCategory = $data['accountCategory'];
+					$accountType = $data['accountType'];
+					$accountName = $data['accountName'];
+					$accountNumber = $data['accountNumber'];
+					$accountPayment = $data['accountPayment'];
+					$accountDueDate = $data['accountDueDate'];
+					if ($accountPayment == NULL){
+						$accountSymbol = '';
+					}
+					else{
+						$accountSymbol = "$";
+					}
+					echo "<tr>
+							<td>$accountCategory</td><td><img src=\"media/$accountType.png\"></td><td>$accountType</td><td><img src=\"media/companies/$accountName.png\"></td><td>$accountName</td><td>$accountNumber</td><td>$accountSymbol $accountPayment</td><td style=\"text-align: center;\">$accountDueDate</td>
+							<td>
+								<form id=\"account_delete\" name=\"account_delete\" action=\"\" method=\"POST\">
+									<input type=\"hidden\" name=\"accountdeleteID\" value=\"$accountID\">
+									<button><img src=\"media/delete.ico\"></button>
+								</form>
+							</td>
+							<td>
+						</tr>";
+				};?>
+			</table>
         </section>
     </section>
-<?
-}
+<?PHP
+};
+include("includes/footer.php");
 ?>

@@ -1,4 +1,4 @@
-<?
+<?PHP
 include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 // this creates a payment transaction
@@ -99,23 +99,23 @@ function display_form(){
         ?>
         <section id="payment_top">
             <section id="payment"> 
-                <div id="payment_image"><img src="media/companies/<? echo $data['accountName']?>.png"></div>
-                <div id="payment_type"><? echo $data['accountName']?></div>
+                <div id="payment_image"><img src="media/companies/<?PHP echo $data['accountName']; ?>.png"></div>
+                <div id="payment_type"><?PHP echo $data['accountName']; ?></div>
                 <table id="payment_account_table">
                 <h3>Add Payment (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h3>
                     <tr><th>Name</th><th>Phone</th></tr>
-                    <tr><td style="width: 100px; max-width: 100px; "><? echo $data['accountName']?></td><td style="width: 50px; max-width: 50px; "><? echo $data['accountPhone']?></td></tr>
+                    <tr><td style="width: 100px; max-width: 100px; "><?PHP echo $data['accountName']; ?></td><td style="width: 50px; max-width: 50px; "><?PHP echo $data['accountPhone']; ?></td></tr>
                     <tr><th>Payment</th><th>Due Date</th></tr>
-                    <tr><td>$<? echo $data['accountPayment']?></td><td><? echo $data['accountDueDate']?></td></tr>
+                    <tr><td>$<?PHP echo $data['accountPayment']; ?></td><td><?PHP echo $data['accountDueDate']; ?></td></tr>
                 </table>
                 <form id="payment_form" name="payment_add" action="payments.php" method="POST">
-                        <input type="hidden" name="paymentcategory" style="display: none;" value="<? echo $data['accountCategory']?>"><br>
-                        <input type="hidden" name="paymenttype" style="display: none;" value="<? echo $data['accountType']?>">
-                        <input type="hidden" name="paymentname" style="display: none;" value="<? echo $data['accountName']?>">
-                        <input type="hidden" name="accountid" style="display: none;" value="<? echo $data['accountID']?>">
+                        <input type="hidden" name="paymentcategory" style="display: none;" value="<?PHP echo $data['accountCategory']; ?>"><br>
+                        <input type="hidden" name="paymenttype" style="display: none;" value="<?PHP echo $data['accountType']; ?>">
+                        <input type="hidden" name="paymentname" style="display: none;" value="<?PHP echo $data['accountName']; ?>">
+                        <input type="hidden" name="accountid" style="display: none;" value="<?PHP echo $data['accountID']; ?>">
                         <table>
                             <tr>
-                                <td>Date <span style="color: red;">*</span></td><td><input type="date" name="paiddate" value="<?php echo $CURRENT_DATE;?>" required></td>
+                                <td>Date <span style="color: red;">*</span></td><td><input type="date" name="paiddate" value="<?PHP echo $CURRENT_DATE; ?>" required></td>
                                 <td>Time <span style="color: red;">*</span></td><td><input type="time" name="paidtime" required></td>
                             </tr>
                             <tr>
@@ -187,6 +187,10 @@ function display_form(){
             </section>
         </section>
     </section>
+<?PHP
+};
+include("includes/footer.php");
+?>
     <script>
         window.onload = function() {
             // Bill Chart
@@ -206,6 +210,3 @@ function display_form(){
             chart.render();
         }
     </script>
-<?PHP
-};
-?>

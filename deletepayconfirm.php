@@ -27,26 +27,28 @@
         while($data = $results->fetch()){
         ?>
         <section id="payment_delete">
-            <div id="payment_delete_image"><img src="media/companies/<? echo $data['paymentName']?>.png"></div>
-            <div id="payment_delete_type"><? echo $data['paymentName']?></div><br>       
+            <div id="payment_delete_image"><img src="media/companies/<?PHP echo $data['paymentName']; ?>.png"></div>
+            <div id="payment_delete_type"><?PHP echo $data['paymentName']; ?></div><br>       
             <h3><img id="deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete record?</h3>
             <form id="payment_del_form" name="payment_delete" action="deletepayconfirm.php" method="POST">
-                <input type="hidden" name="paydeleteID" value="<? echo $paydeleteID?>">
-                <input type="hidden" name="script_path" value="<? echo $script_path?>">
+                <input type="hidden" name="paydeleteID" value="<?PHP echo $paydeleteID; ?>">
+                <input type="hidden" name="script_path" value="<?PHP echo $script_path; ?>">
                 <table>
                     <tr>
-                        <td>Date</td><td><input type="date" value="<? echo $data['paymentDate']?>" disabled="disabled"></td>
-                        <td>Time</td><td><input type="time" value="<? echo $data['paymentTime']?>" disabled="disabled"></td>
+                        <td>Date</td><td><input type="date" value="<?PHP echo $data['paymentDate']; ?>" disabled="disabled"></td>
+                        <td>Time</td><td><input type="time" value="<?PHP echo $data['paymentTime']; ?>" disabled="disabled"></td>
                     </tr>
                     <tr>
-                    <td>Amount</td><td><input type="number" size="10" value="<? echo $data['paymentPaidAmount']?>" disabled="disabled"></td>
+                    <td>Amount</td><td><input type="number" size="10" value="<?PHP echo $data['paymentPaidAmount']; ?>" disabled="disabled"></td>
                     </tr>
                     <tr><td colspan="4"><input type="submit" name="paydeletesubmit" value="Delete Payment"></td></tr>
                 </table>
-                <a href="<? echo $script_path?>" class="button_green"  id="deletecancel">Cancel</a>
+                <a href="<?PHP echo $script_path; ?>" class="button_green"  id="deletecancel">Cancel</a>
             </form>
         </section>
-        <?
+        <?PHP
         }
-    };
-    ?>
+	};
+	include("includes/footer.php");
+	?>
+

@@ -1,4 +1,4 @@
-<?php
+<?PHP
 $username = 'root';
 $password = 'Msql4jbv191';
 $host = 'mysql:dbname=mymoney;host=127.0.0.1';

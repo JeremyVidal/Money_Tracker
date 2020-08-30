@@ -1,4 +1,4 @@
-<?php
+<?PHP
 include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 //income_graph
@@ -62,7 +62,7 @@ function display_form(){
                             </datalist>
                         </td>          
                           <td>Date <span style="color: red;">*</span></td> 
-                          <td><input type="date" name="incomedate" size='35' value="<?php echo $CURRENT_DATE;?>" required></td>  
+                          <td><input type="date" name="incomedate" size='35' value="<?PHP echo $CURRENT_DATE; ?>" required></td>  
                     </tr>    
                     <tr>   
                     <td>Gross Pay <span style="color: red;">*</span></td><td><input type="number" name="incomegross" min="0.00" step="0.01" size='5' required></td>
@@ -107,7 +107,7 @@ function display_form(){
             </table>
         </section>
     </section>
-<?
+<?PHP
 };
 ?>
 <script>
@@ -130,3 +130,6 @@ function display_form(){
             chart.render();
     }
 </script>
+<?PHP
+	include("includes/footer.php");
+?>

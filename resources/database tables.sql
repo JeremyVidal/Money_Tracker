@@ -10,7 +10,8 @@ CREATE TABLE personal (
     lastName varchar(255),
    	birthDate date,
     userEmail varchar(255),
-    userPassword varchar(255),
+	userName varchar(30),
+    userPassword varchar(260),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 
 
@@ -92,8 +93,8 @@ create table contact(
 
 
 -- Personal Data
-insert into personal(firstName, lastName, birthDate, userEmail, userPassword)
-values ('Jeremy', 'Vidal', '1977-10-17', 'jbvidal101@gmail.com', '1234');
+insert into personal(firstName, lastName, birthDate, userEmail, userName, userPassword)
+values ('Jeremy', 'Vidal', '1977-10-17', 'jbvidal101@gmail.com', 'jbv101', 1234);
 
 -- Employment Data
 insert into employment(companyName, companyStreet, companyCity, companyState, companyZip, companyPhone, companyStartDate, companyEndDate, userID)

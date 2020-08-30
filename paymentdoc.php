@@ -1,4 +1,4 @@
-<?
+<?PHP
 session_start();
 require('includes/db_conn.php');
 	// this is a report created to send along with a payment for a collection account
@@ -40,16 +40,16 @@ require('includes/db_conn.php');
             <table id="print_account_table">
                 <tr><th>To:</th></tr>
                 <tr><td>Attn: Billing Department</td></tr>
-                <tr><td><? echo $accountName;?></td></tr>
-                <tr><td><? echo $accountStreet;?></td></tr>
-                <?
+                <tr><td><?PHP echo $accountName; ?></td></tr>
+                <tr><td><?PHP echo $accountStreet; ?></td></tr>
+                <?PHP
                 if ($accountStreet2 != ""){?>
-                <tr><td><? echo $accountStreet2;?></td></tr>
-                <?
+                <tr><td><?PHP echo $accountStreet2; ?></td></tr>
+                <?PHP
                 }
                 ?>
-                <tr><td><? echo $accountCity . " " . $accountState . ", " . $accountZip;?></td></tr>
-                <tr><td><? echo $accountPhone;?></td></tr>
+                <tr><td><?PHP echo $accountCity . " " . $accountState . ", " . $accountZip; ?></td></tr>
+                <tr><td><?PHP echo $accountPhone; ?></td></tr>
             </table>
             <table id="print_from_table">
                 <tr><th>From:</th></tr>
@@ -57,14 +57,14 @@ require('includes/db_conn.php');
                 <tr><td>6008 Moeller Rd</td></tr>
                 <tr><td>Fort Wayne, IN 46806</td></tr>
                 <tr><td>Account Number:</td></tr>
-                <tr><td><? echo "#".$accountNumber;?></td></tr>
+                <tr><td><?PHP echo "#".$accountNumber; ?></td></tr>
             </table>
     </section>
     <section id="print_body">
-        <div id="print_date">Date: <? echo $paymentDate;?></div>
+        <div id="print_date">Date: <?PHP echo $paymentDate; ?></div>
         <br><br>
         <p>
-            This letter is in reference to Account Number <span style="text-decoration: underline;"><? echo $accountNumber;?></span> for the amount of <? echo "$".$paymentPaidAmount;?>.
+            This letter is in reference to Account Number <span style="text-decoration: underline;"><?PHP echo $accountNumber; ?></span> for the amount of <?PHP echo "$".$paymentPaidAmount; ?>.
         </p>
         <p style="text-indent: 50px;">
             I am trying to pay off this debt the best I can at the moment. I cannot make a payment arrangement because I do not know 
@@ -77,3 +77,6 @@ require('includes/db_conn.php');
         <img id="signature" src="media/Signature.png">
     </section>
 </section>
+<?PHP
+	include("includes/footer.php");
+?>

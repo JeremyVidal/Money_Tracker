@@ -1,4 +1,4 @@
-<?php
+<?PHP
 include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 // this creates a transaction taht will be displayed along with any account payments
@@ -44,7 +44,7 @@ function display_form(){
                     <input type="hidden" name="paymentcategory" value="Living">
                     <table>
                         <tr>
-                            <td>Date <span style="color: red;">*</span></td><td><input type="date" name="ledgerdate" value="<?php echo $CURRENT_DATE;?>" required></td>
+                            <td>Date <span style="color: red;">*</span></td><td><input type="date" name="ledgerdate" value="<?PHP echo $CURRENT_DATE; ?>" required></td>
                             <td>Time <span style="color: red;">*</span></td><td><input type="time" name="ledgertime" required></td>
                             <td>Type <span style="color: red;">*</span></td>
                             <td><select id="ledgertype" name="ledgertype" required>
@@ -146,6 +146,7 @@ function display_form(){
             chart.render();
         }
     </script>
-<?
+<?PHP
 }
+include("includes/footer.php");
 ?>

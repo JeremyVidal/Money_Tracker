@@ -1,0 +1,8 @@
+Terminal command to go into MySQL:
+mysql -u root -p
+
+Password:
+Msql4jbv191
+
+Database to use:
+mymoney

@@ -1,4 +1,4 @@
-<?
+<?PHP
 session_start();
 require('includes/db_conn.php');
 	// this is a script to print out an envelope with the address to go along with paymentdoc.php for an account payment
@@ -32,14 +32,17 @@ require('includes/db_conn.php');
     </table>   
     <table id="envelope_table">
         <tr><td>Attn: Billing</td></tr>
-        <tr><td><? echo $accountName;?></td></tr>
-        <tr><td><? echo $accountStreet;?></td></tr>
-        <?
+        <tr><td><?PHP echo $accountName; ?></td></tr>
+        <tr><td><?PHP echo $accountStreet; ?></td></tr>
+        <?PHP
         if ($accountStreet2 != ""){?>
-        <tr><td><? echo $accountStreet2;?></td></tr>
-        <?
+        <tr><td><? echo $accountStreet2; ?></td></tr>
+        <?PHP
         }
         ?>
-        <tr><td><? echo $accountCity . " " . $accountState . ", " . $accountZip;?></td></tr>
+        <tr><td><?PHP echo $accountCity . " " . $accountState . ", " . $accountZip; ?></td></tr>
     </table>
 </section>
+<?PHP
+	include("includes/footer.php");
+?>
