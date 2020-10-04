@@ -16,29 +16,63 @@
         $contactdeleteID = $_SESSION['contactdeleteID'];
         $results = $conn->query("SELECT * FROM `contact` WHERE `contactID` = '$contactdeleteID';");
         while($data = $results->fetch()){
-        ?>
+		?>
+		<style> 
+		/* DeleteContactConfirm */
+		#contact_delete {width: 40%; margin: 200px auto 0 auto; padding: 10px;}	
+		#contact_deleteimg{width: 30px;}
+		.contact_delete_img{width: 60px;}
+		</style>
         <section id="contact_delete">
-            <div id="contact_delete_image"><img src="media/companies/<?PHP echo $data['contactName']; ?>.png"></div>
-            <div id="contact_delete_type"><?PHP echo $data['contactName']; ?></div><br>       
-            <h3><img id="contact_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete RECORD?</h3>
-            <form id="contact_del_form" name="contact_delete" action="deletecontactconfirm.php" method="POST">
-                <input type="hidden" name="contactdeleteID" value="<?PHP echo $_SESSION['contactdeleteID']; ?>">
-                <table>
-                    <tr>
-                        <td>Type</td><td><input type="text" name="deletetype" value="<?PHP echo $data['contactType']; ?>" disabled="disabled"></td>
-                        <td>Result</td><td><input type="text" name="deleteresults" value="<?PHP echo $data['contactResults']; ?>" disabled="disabled"></td>
-                    </tr>
-                    <tr>
-                        <td>Date</td><td><input type="date" name="deletedate" value="<?PHP echo $data['contactDate']; ?>" disabled="disabled"></td>
-                        <td>Time</td><td><input type="time" name="deletetime" value="<?PHP echo $data['contactTime']; ?>" disabled="disabled"></td>
-                    </tr>
-                    <tr>
-                        <td for="deletenotes">Notes</td>
-                        <td colspan="3"><textarea id="deletenotes" name="deletenotes" rows="4" cols="50" disabled="disabled"><?PHP echo $data['contactNotes']; ?></textarea></td>
-                    </tr>
-                    <tr><td colspan="4"><input type="submit" name="contactdeletesubmit" value="Delete Payment"></td></tr>
-                </table>
-                <a href="contact.php"  id="contact_delete_cancel">Cancel</a>
+		<div class="card">
+            <form class="form" name="contact_delete" action="deletecontactconfirm.php" method="POST">
+				<input type="hidden" name="contactdeleteID" value="<?PHP echo $_SESSION['contactdeleteID']; ?>">
+				<div class="card-header d-flex justify-content-between">
+					<h5><img id="contact_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete RECORD?</h5>
+					<div class="d-flex">
+						<img class="contact_delete_img" src="media/companies/<?PHP echo $data['contactName']; ?>.png">
+						<p><?PHP echo $data['contactName']; ?></p>     
+					</div>
+				</div>
+				<div class="card-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletetype">Type</label>
+							<input type="text" id="deletetype" name="deletetype" class="form-control" value="<?PHP echo $data['contactType']; ?>" disabled>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deleteresults">Result</label>
+							<input type="text" id="deleteresults" name="deleteresults" class="form-control" value="<?PHP echo $data['contactResults']; ?>" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletedate">Date</label>
+							<input type="date" id="deletedate" name="deletedate" class="form-control" value="<?PHP echo $data['contactDate']; ?>" disabled>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletetime">Time</label>
+							<input type="time" id="deletetime" name="deletetime" class="form-control" value="<?PHP echo $data['contactTime']; ?>" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<label for="deletenotes">Notes</label>
+						<textarea id="deletenotes" name="deletenotes" class="form-control" rows="4" cols="40" disabled><?PHP echo $data['contactNotes']; ?></textarea>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-between align-items-center">
+					<input type="submit" class="btn" name="contactdeletesubmit" value="Delete Payment">
+					<a href="contact.php"  id="contact_delete_cancel">Cancel</a>
+				</div>       
             </form>
         </section>
         <?PHP

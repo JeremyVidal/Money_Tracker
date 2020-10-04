@@ -30,53 +30,30 @@ while($data = $results->fetch()){
 ?>
 <style>
 	/* Dashboard */
-	.dash_links{color: black;}
-	#upcoming_events {width: 95%; max-height: 200px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
-	#upcoming_table {width: 95%; margin: 20px auto; border-collapse: collapse;}
-	#upcoming_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
-	#upcoming_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
-	
-	#graphs{margin-top: 25px;}
-	#YTD_graph {height: 220px; width: 350px;}
-	#income_graph {height: 220px; width: 350px;}
-	#bill_graph {height: 220px; width: 350px;}
+	.dash_links{color: red;}
+	.dash_img {width: 18px;}
+	.dash_graphs {height: 220px; width: 300px; display: inline-block;}
+	#graphs {margin: 25px 0 50px 0;}
 
-	#activity_table {width: 95%; margin: 0 auto; border-collapse: collapse;}
-	#activity_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
-	#activity_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
-
-	#contact_table_dash {width: 95%; margin: 10px auto; border-collapse: collapse;}
-	#contact_table_dash th {border-bottom: 1px solid #4f81bc; text-align: left;}
-	#contact_table_dash td {border-bottom: 1px solid #4f81bc; max-width: 150px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-
-	#income {width: 95%; height: 140px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
-	#income_table {width: 100%; margin-top: 20px; border-collapse: collapse;}
-	#income_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
-	#income_table td {border-bottom: 1px solid #4f81bc; padding: 2px;}
-
-	#bill_breakdown {width: 95%; height: 220px; margin: 20px auto 20px auto; padding: 10px; overflow-y:auto;}
-	#breakdown_table {width: 95%; margin: 20px auto; border-collapse: collapse;}
-	#breakdown_table th {border-bottom: 1px solid #4f81bc; text-align: left;}
-	#breakdown_table td {border-bottom: 1px solid #4f81bc;}
-	.dash_img {width: 20px;}
 </style>
-<section class="conatiner">
-	<section class="row justify-content-center">
-		<section class="col-lg-6">
-			<h3>Upcoming Events</h3>
-			<table id="upcoming_table">
+<section class="conatiner" style="height: 100vh; padding: 25px;">
+	<section class="row">
+		<section class="col-lg-6 my_tables">
+			<table class="table table-striped table-sm">
+				<h4>Upcoming Events</h4>
 				<tr><th>Due Date</th><th></th><th>Time</th><th></th><th>Type</th><th></th><th>Name</th></tr>
 				<?PHP 
 				// union query to connect data from the account and contact tables. 
 				// this is for the upcoing accont payments and any future contact evens that have been made 
-				$results = $conn->query("(SELECT `accountDueDate` as `eventDate`, `accountDueTime` as `eventTime` , `accountName` as `eventName`, `accountType` as `eventType`
-				FROM `account` 
-				WHERE `accountID` NOT IN (select `accountID` from `payment` where `accountID` != 'NULL'  AND MONTH(`paymentDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user') AND `accountDueDate` !=  'NULL')     
-				UNION
-				(SELECT DAY(`contactDate`) as `eventDate`, `contactTime` as `eventTime`, `contactName` as `eventName`, `contactType` as `eventType`
-				FROM `contact`
-				WHERE `contactResults` = 'Future' AND MONTH(`contactDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user')
-				ORDER BY `eventDate` ASC;
+				$results = $conn->query("(
+					SELECT `accountDueDate` as `eventDate`, `accountDueTime` as `eventTime` , `accountName` as `eventName`, `accountType` as `eventType`
+					FROM `account` 
+					WHERE `accountID` NOT IN (select `accountID` from `payment` where `accountID` != 'NULL'  AND MONTH(`paymentDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `accountDueDate` !=  'NULL') AND `userID` = '$current_user' )     
+					UNION
+					(SELECT `contactDate` as `eventDate`, `contactTime` as `eventTime`, `contactName` as `eventName`, `contactType` as `eventType`
+					FROM `contact`
+					WHERE `contactResults` = 'Future' AND MONTH(`contactDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user')
+					ORDER BY `eventDate` ASC;
 				");
 				while($data = $results->fetch()){
 					$eventDate = $data['eventDate'];
@@ -93,9 +70,9 @@ while($data = $results->fetch()){
 				};?>
 			</table>
 		</section>
-		<section class="col-lg-6">
-			<h3><a href="income.php" class="dash_links">Income</a></h3>
-			<table id="income_table">
+		<section class="col-lg-6 my_tables">
+			<table class="table table-striped table-sm">
+				<h4>Income</h4>
 			<tr><th></th><th>Company</th><th>Date</th><th>Gross</th><th>Net</th></tr>
 			<?PHP
 				$results = $conn->query("SELECT * FROM `income` WHERE YEAR(incomeDate) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user' ORDER BY incomeDate DESC;");
@@ -109,21 +86,17 @@ while($data = $results->fetch()){
 			</table>
 		</section>
 	</section>
-	<sectiom id="graphs" class="row justify-content-center">
-		<section class="col-lg-4">	
-			<div id="YTD_graph"></div>
-		</section>
-		<section class="col-lg-4">	
-			<div id="income_graph"></div>
-		</section>
-		<section class="col-lg-4">	
-			<div id="bill_graph"></div>
-		</section>
+
+	<section id="graphs" class="row justify-content-around text-center">
+		<div id="YTD_graph" class="dash_graphs"></div><br />
+		<div id="income_graph" class="dash_graphs"></div><br />
+		<div id="bill_graph" class="dash_graphs"></div>
 	</section>
-	<section class="row justify-content-around">
-		<section class="col-lg-6"> 
-			<h3>Payments (YTD)</h3>
-			<table id="activity_table">
+
+	<section class="row">
+		<section class="col-lg-4 my_tables"> 
+			<table class="table table-striped table-sm">
+			<h4>Category Totals</h4>
 				<tr><th></th><th>Category</th><th>MTD</th><th>YTD</th></tr>
 				<?PHP
 					$results = $conn->query("SELECT sum(`paymentPaidAmount`) as YTD, paymentCategory FROM payment WHERE YEAR(`paymentDate`) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user' GROUP BY paymentCategory;");
@@ -134,13 +107,10 @@ while($data = $results->fetch()){
 					};?>
 			</table>
 		</section>
-	</section>
-<section class="container"> -->
-	<section class="row justify-content-around">
-		<section class="col-lg-6">
-			<h3><a href="contact.php" class="dash_links">Contact Activities</a></h3>
-			<table id="contact_table_dash">
-			<tr><th></th><th>Date</th><th>Time</th><th>Type</th><th>Name</th><th>Notes</th></tr>
+		<section class="col-lg-4 my_tables">
+			<table class="table table-striped table-sm">
+				<h4>Contact Activities</h4>
+				<tr><th></th><th>Date</th><th>Time</th><th>Type</th><th>Name</th></tr>
 			<?PHP
 				$results = $conn->query("SELECT * FROM `contact` WHERE MONTH(contactDate) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `contactResults` != 'Future' ORDER BY contactDate DESC, contactTime DESC;");
 				while($data = $results->fetch()){
@@ -163,15 +133,15 @@ while($data = $results->fetch()){
 					}
 					$contactName = $data['contactName'];
 					$contactNotes = $data['contactNotes'];
-					echo "<tr><td><img class=\"dash_img\" src=\"media/$phone_results.png\"></td><td>$contactDate</td><td>$contactTime</td><td><img class=\"dash_img\" src=\"media/$contactType.png\"></td><td>$contactName</td><td>$contactNotes</td></tr>";
+					echo "<tr><td><img class=\"dash_img\" src=\"media/$phone_results.png\"></td><td>$contactDate</td><td>$contactTime</td><td><img class=\"dash_img\" src=\"media/$contactType.png\"></td><td>$contactName</td></tr>";
 				};?>
 			</table>
 		
 		</section>
-		<section class="col-lg-6">
-				<h3><a href="payments.php" class="dash_links" >Payments</a></h3>
-				<table id="breakdown_table">
-					<tr><th></th><th>Date</th><th>Time</th><th>Name</th><th>Payment</th></tr>
+		<section class="col-lg-4 my_tables">
+			<table class="table table-striped table-sm">
+				<h4>Payments</h4>
+					<tr><th></th><th>Date</th><th>Name</th><th>Payment</th></tr>
 					<?PHP
 					$results = $conn->query("SELECT * FROM `payment` WHERE MONTH(paymentDate) = MONTH(CURRENT_DATE()) AND `paymentCategory` != 'Living' AND `userID` = '$current_user' ORDER BY paymentDate DESC, paymentTime DESC;");
 					while($data = $results->fetch()){
@@ -179,7 +149,7 @@ while($data = $results->fetch()){
 						$paymentTime = date("h:i A", strtotime($data['paymentTime']));
 						$paymentName = $data['paymentName'];
 						$paymentPaidAmount = $data['paymentPaidAmount'];
-					echo "<tr><td><img class=\"dash_img\" src=\"media/companies/$paymentName.png\"></td><td>$paymentDate</td><td>$paymentTime</td><td>$paymentName</td><td>$$paymentPaidAmount</td></tr>";
+					echo "<tr><td><img class=\"dash_img\" src=\"media/companies/$paymentName.png\"></td><td>$paymentDate</td><td>$paymentName</td><td>$$paymentPaidAmount</td></tr>";
 					};?>
 				</table>
 		</section>
@@ -202,7 +172,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Payments (YTD)"
+                text: "Categories (YTD) Graph"
             },
             data: [{
                 type: "pie",
@@ -219,7 +189,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Income (YTD)"
+                text: "Income (YTD) Graph"
             },
             data: [{
                 type: "funnel",
@@ -235,7 +205,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Bills (MTD)"
+                text: "Payments (MTD) Graph"
             },
             data: [{
                 type: "doughnut",
@@ -244,7 +214,6 @@ while($data = $results->fetch()){
                 dataPoints: <?PHP echo json_encode($bill_data, JSON_NUMERIC_CHECK); ?>
             }]
         });
-
         chart.render();
 
     }

@@ -1,5 +1,7 @@
 <?PHP
-include("includes/header.php");
+session_start();
+require('includes/db_conn.php');
+
 if(isset($_POST['loginsubmit'])){
     require('includes/db_conn.php');
 	$username = $_POST['username'];
@@ -13,14 +15,17 @@ if(isset($_POST['loginsubmit'])){
 	$data = $results->fetch();
 	if (password_verify($password, $data['userPassword'])){
 		$_SESSION['userID'] = $data['userID'];
+		$_SESSION['loggedIN'] = true;
 		?><script type="text/javascript">location.href='dashboard.php';</script><?
 	}
 	else{
-		echo "Username or password is incorrect!";
+		echo "No user with those credentials!";
+		display_form();
 	}
 }
 else if (isset($_GET['logout'])){
 	session_destroy();
+	$_SESSION = [];
 	display_form();
 }
 else{
@@ -37,37 +42,60 @@ function display_form(){
 	<meta name="viewport" content="width=device-width" />
 	<meta name="keywords" content="Keywords..." />
 	<meta name="description" content="Description..." /> 
-	<link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen"/>
+	<!-- Bootstrap -->
+	<link rel='stylesheet' href="javascript/bootstrap-4.0.0/css/bootstrap.min.css">
 	<link rel="icon" href="/media/icon.png" type="image/x-icon" />
 	<link rel="shortcut icon" href="/media/icon.png" type="image/x-icon" />
 	</head>
 	<style>
 		/* Index */
 		body {background-color: #4f81bc;}
-		#header{display: none;}
-		#login_display {width: 400px; margin: 150px auto; padding: 25px; background-color: white;}
-		#login_form{width: 90%; margin: 0 auto; text-align: center;}
-		#login_form input[type=text], input[type=password]{padding: 10px; margin: 10px; width: 90%; font-size: 1em;}
-		#login_form input[type=submit] {font-size: 1em;}
-		#logo_table td{padding: 0; text-align: left;}
-		#signin {color: black;}
+		#header {display: none;}
+		#navigation {display: none;}
 	</style>
 	<body>
-		<section id="content">
-			<section id="login_display">
-				<table id="logo_table"> 
-					<tr><td rowspan="2"><img id="logo" src="/media/logo4.png" style="width: 150px;"></td>
-					<td><h1>Money Tracker</h1></td></tr>
-					<tr><td><h4>Powered by: ArcaneSight</h4></td></tr>
-				</table>
-				<form id="login_form" name="login_form" action="#" method="POST">
-					<input type="text" name="username" required placeholder="User Name"><br>
-					<input type="password" name="password" required placeholder="Password"><br>
-					<input type="submit" name="loginsubmit" value="Sign In">
-				</form>
-				<a href="signup.php" id="signin">Sign Up</a>
-			</section>
+	<section class="container" style="margin-top: 100px">
+		<section class="row justify-content-center">
+			<div class="card" style="width: 25rem;">
+				<div class="d-fex justify-content-between">
+					<div class="row align-items-center">
+						<div class="col-auto">
+							<img id="logo" src="/media/logo4.png" style="width: 120px;">
+						</div>
+						<div class="col-auto ">
+							<div>
+								<h3>Money Tracker</h3>
+								<h5>Login</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<form class="form" name="login_form" action="#" method="POST">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<!-- <input type="text" name="username" required placeholder="User Name"><br> -->
+							<input type="text" id="username" class="form-control" name="username" required placeholder="User Name">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<!-- <input type="password" name="password" required placeholder="Password"><br> -->
+							<input type="password" id="password" class="form-control" name="password" required placeholder="Password">
+						</div>
+						<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+						<div class="row justify-content-around">
+							<form class="form" name="login_form" action="#" method="POST">
+								<input type="submit" name="loginsubmit" value="Sign In">
+							</form>
+							<a href="signup.php">Sign Up</a>
+						</div>
+					</form>
+				</div>
+			</div>
+
 		</section>
+	</section>
 		<?PHP
 };
 ?>

@@ -25,25 +25,54 @@
         }
         $results = $conn->query("SELECT * FROM `payment` WHERE `paymentID` = '$paydeleteID';");
         while($data = $results->fetch()){
-        ?>
-        <section id="payment_delete">
-            <div id="payment_delete_image"><img src="media/companies/<?PHP echo $data['paymentName']; ?>.png"></div>
-            <div id="payment_delete_type"><?PHP echo $data['paymentName']; ?></div><br>       
-            <h3><img id="deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete record?</h3>
+		?>
+		<style> 
+
+		/* DeletePayConfirm */
+			#pay_delete {width: 40%; margin: 200px auto 0 auto; padding: 10px;}	
+			#pay_deleteimg{width: 30px;}
+			.pay_delete_img{width: 60px;}
+		</style>
+        <section id="pay_delete">
+		<div class="card">
             <form id="payment_del_form" name="payment_delete" action="deletepayconfirm.php" method="POST">
-                <input type="hidden" name="paydeleteID" value="<?PHP echo $paydeleteID; ?>">
-                <input type="hidden" name="script_path" value="<?PHP echo $script_path; ?>">
-                <table>
-                    <tr>
-                        <td>Date</td><td><input type="date" value="<?PHP echo $data['paymentDate']; ?>" disabled="disabled"></td>
-                        <td>Time</td><td><input type="time" value="<?PHP echo $data['paymentTime']; ?>" disabled="disabled"></td>
-                    </tr>
-                    <tr>
-                    <td>Amount</td><td><input type="number" size="10" value="<?PHP echo $data['paymentPaidAmount']; ?>" disabled="disabled"></td>
-                    </tr>
-                    <tr><td colspan="4"><input type="submit" name="paydeletesubmit" value="Delete Payment"></td></tr>
-                </table>
-                <a href="<?PHP echo $script_path; ?>" class="button_green"  id="deletecancel">Cancel</a>
+				<input type="hidden" name="paydeleteID" value="<?PHP echo $paydeleteID; ?>">
+				<input type="hidden" name="script_path" value="<?PHP echo $script_path; ?>">
+				<div class="card-header d-flex justify-content-between">
+					<h5><img id="pay_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete record?</h5>
+					<div class="d-flex">
+						<img class="pay_delete_img" src="media/<?PHP echo $data['paymentType']; ?>.png">
+						<p><?PHP echo $data['paymentName']; ?></p>       
+					</div>
+				</div>
+				<div class="card-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletepaydate">Date</label>
+							<input type="date" id="deletepaydate" class="form-control" value="<?PHP echo $data['paymentDate']; ?>" disabled>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletepaytime">Time</label>
+							<input type="time" id="deletepaytime" class="form-control" value="<?PHP echo $data['paymentTime']; ?>" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="deletepayamount">Amount</label>
+							<input type="number" id="deletepayamount" class="form-control" value="<?PHP echo $data['paymentPaidAmount']; ?>" disabled>
+					
+						</div>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-between align-items-center">
+					<input type="submit" class="btn" name="paydeletesubmit" value="Delete Payment">
+					<a href="<?PHP echo $script_path; ?>" class="btn"  id="deletecancel">Cancel</a>
+				</div>
             </form>
         </section>
         <?PHP

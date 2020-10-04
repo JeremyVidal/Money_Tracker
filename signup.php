@@ -1,5 +1,7 @@
 <?PHP
-include("includes/header.php");
+session_start();
+require('includes/db_conn.php');
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,20 +11,16 @@ include("includes/header.php");
 <meta name="viewport" content="width=device-width" />
 <meta name="keywords" content="Keywords..." />
 <meta name="description" content="Description..." /> 
-<link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen"/>
+<!-- Bootstrap -->
+<link rel='stylesheet' href="javascript/bootstrap-4.0.0/css/bootstrap.min.css">
 <link rel="icon" href="/media/icon.png" type="image/x-icon" />
 <link rel="shortcut icon" href="/media/icon.png" type="image/x-icon" />
 </head>
 <style>
 	/* Sign Up */
 	body {background-color: #4f81bc;}
-	#header{display: none;}
-	#signup_display {width: 400px; margin: 150px auto; padding: 25px; background-color: white;}
-	#signup_form{width: 90%; margin: 0 auto; text-align: center;}
-	#signup_form input[type=text], input[type=email], input[type=date], input[type=password]{padding: 10px; margin: 10px; width: 90%; font-size: 1em;}
-	#signup_form input[type=submit] {font-size: 1em;}
-	#logo_table td{padding: 0; text-align: left;}
-	#cancel {color: black;}
+	#navigation {display: none;}
+	#header {display: none;}
 </style>
 <?PHP
 if (isset($_POST['signupsubmit'])){
@@ -56,25 +54,71 @@ if (isset($_POST['signupsubmit'])){
 }
 ?>
 <body>
-    <section id="content">
-        <section id="signup_display">
-            <table id="logo_table"> 
-                <tr><td rowspan="2"><img id="logo" src="/media/logo4.png" style="width: 150px;"></td>
-                <td><h1>Money Tracker</h1></td></tr>
-                <tr><td><h4>Sign Up Form</h4></td></tr>
-            </table>
-            <form id="signup_form" name="signup_form" action="#" method="POST">
-                <input type="text" name="firstname" placeholder="First Name"><br>
-                <input type="text" name="lastname" placeholder="Last Name"><br>
-                <input type="date" name="birthdate" placeholder="Birthday"><br>
-                <input type="email" name="email" placeholder="Email"><br>
-                <input type="text" name="username" placeholder="User Name"><br>
-                <input type="password" name="password" placeholder="Password"><br>
-                <input type="submit" name="signupsubmit" value="Register">
-            </form>
-            <a href="index.php" id="cancel">Cancel</a>
-        </section>
-    </section>
+	<section class="container" style="margin-top: 100px">
+		<section class="row justify-content-center">
+			<div class="card" style="width: 35rem;">
+				<div class="d-fex justify-content-around">
+					<div class="row align-items-center">
+						<div class="col-lg-4">
+							<img id="logo" src="/media/logo4.png" style="width: 120px;">
+						</div>
+						<div class="col-lg-8 ">
+							<div>
+								<h3>Money Tracker</h3>
+								<h5>Sign Up</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+				<form class="form" name="signup_form" action="#" method="POST">
+					<div class="row justify-content-between">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="first_name">First Name</label>
+								<input type="text" id="first_name" class="form-control input-sm" name="firstname" required placeholder="First Name">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="last_name">Last Name</label>
+								<input type="text" id="last_name" class="form-control input-sm" name="lastname" required placeholder="Last Name">
+							</div>	
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="form-group">
+								<label for="birthday">Birthday</label>
+								<input type="date" id="birthday" class="form-control input-sm" name="birthdate" required placeholder="Birthday">
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="form-group">
+								<label for="user_name">User Name</label>
+								<input type="text" id="user_name" class="form-control input-sm" name="username" required placeholder="User Name">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" id="email" class="form-control input-sm" name="email" required placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" id="password" class="form-control input-sm" name="password" required placeholder="Password">
+					</div>
+					<div class="row justify-content-around">
+						<input type="submit" name="signupsubmit" value="Sign Up">
+						<a href="index.php" id="cancel">Cancel</a>
+					</div>
+            	</form>
+				</div>
+			</div>
+
+		</section>
+	</section>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

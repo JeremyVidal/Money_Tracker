@@ -3,15 +3,14 @@ include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 // this creates a payment transaction
 if (isset($_POST['paymentsubmit'])){
-    // print_r($_POST);
-    $paiddate = $_POST['paiddate'];
-    $paidtime = $_POST['paidtime'];
     $paymentcategory = $_POST['paymentcategory'];
     $paymenttype = $_POST['paymenttype'];
     $paymentname = $_POST['paymentname'];
+    $accountID = $_POST['accountid'];
+    $paiddate = $_POST['paiddate'];
+    $paidtime = $_POST['paidtime'];
     $paidamount = $_POST['paidamount'];
     $paidtype = $_POST['paidtype'];
-    $accountID = $_POST['accountid'];
     
     $addPayment = "INSERT INTO `payment` (`paymentID`, `paymentDate` , `paymentTime` , `paymentCategory`, `paymentType`, `paymentName`, `paymentDescription`, `paymentPaidAmount`, `paidType`, `accountID`, `userID`)
     VALUES (NULL, '$paiddate', '$paidtime', '$paymentcategory', '$paymenttype', '$paymentname', NULL, '$paidamount', '$paidtype', '$accountID', '$current_user' )"; 
@@ -41,8 +40,8 @@ else if (isset($_POST['payenvelopeID'])){
     display_form();
 }
 else if (isset($_POST['acctpaysubmit'])){
-    $_SESSION['current_payment_id'] = $_POST['acctpayID'];
-    display_form();
+	$_SESSION['current_payment_id'] = $_POST['acctpayID'];
+    ?><script type="text/javascript">location.href='payments.php';</script><?
 }
 else{
     display_form();
@@ -67,146 +66,217 @@ function display_form(){
         $paymentPaidAmount = $data['YTD'];
         $YTD_data[] = array("label"=>$paymentName, "y"=>$paymentPaidAmount);
     }
-    ?>
-    <section id="payment_sidenav">
-        <h2>Account Payment</h2>
-		<?PHP 
-			// this creates the sidebar selections
-            $result = $conn->query("SELECT DISTINCT `accountCategory` FROM `account`;");
-            while($record = $result->fetch()){
-                $accountCategory = $record['accountCategory'];
-                echo "<h3>$accountCategory</h3>";
-                echo "<ul>";
-                $results = $conn->query("SELECT `accountName`, `accountID` FROM `account` WHERE `accountCategory` = '$accountCategory';");
-                while($data = $results->fetch()){
-                    $accountName = $data['accountName'];
-                    $accountID = $data['accountID'];
-                    echo "<li>
-                    <form name=\"acct\" id=\"payment_side_links\" action=\"payments.php\" method=\"POST\">
-                        <input type=\"hidden\" name=\"acctpayID\" value=\"$accountID\">
-                        <input type=\"submit\" name = \"acctpaysubmit\" value=\"$accountName\" style=\"text-align: left;\">
-                    </form>
-                    </li>";
-                };
-                echo "</ul>";
-            };
-        ?>
-    </section>
-    <section id="payment_main">
-        <?PHP
+	?>
+	<style>
+	/* Payments */
+	#payment_add_button {background-color: #4f81bc; color: white; margin-left: 15px;}
+	#YTD_graph {float: right; height: 220px; width: 350px;}
+	.payment_main {position: absolute; width: 87%; margin-left: 16%; padding: 25px; display: inline-block;}
+	.account_image {width: 60px;}
+	.account_button {border: none; background-color: white;}
+	.payment_img{width: 20px;}
+	.payment_side_links{padding: 7px; min-width: 175px; border: none; text-decoration: none; color: black; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+	.payment_side_links:hover {color: black; background-color: #F0F0F0;}
+	.sidebar {position: fixed; top: 132px; bottom: 0; left: 0; z-index: 1000; display: block; padding: 20px; overflow-x: hidden; overflow-y: auto; border-right: 1px solid #eee;}
+	</style>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<h4>Select Account</h4>
+				<hr />
+				<?PHP 
+					// this creates the sidebar selections
+					$result = $conn->query("SELECT DISTINCT `accountCategory` FROM `account` WHERE `userID` = '$current_user'");
+					while($record = $result->fetch()){
+						$accountCategory = $record['accountCategory'];
+						echo "<h5>$accountCategory</h5>";
+						echo "<ul class=\"nav flex-column\">";
+						$results = $conn->query("SELECT `accountName`, `accountID` FROM `account` WHERE `accountCategory` = '$accountCategory' AND `userID` = '$current_user';");
+						while($data = $results->fetch()){
+							$accountName = $data['accountName'];
+							$accountID = $data['accountID'];
+							echo "<li class=\"nav-item\">
+							<form name=\"acct\" class=\"nav-link active\"  action=\"payments.php\" method=\"POST\">
+								<input type=\"hidden\" name=\"acctpayID\" value=\"$accountID\">
+								<input type=\"submit\" name = \"acctpaysubmit\" class=\"payment_side_links\" value=\"$accountName\" style=\"text-align: left;\">
+							</form>
+							</li>";
+						};
+						echo "</ul>";
+					};
+				?>
+			</div>
+		</div>
+	</div>
+	<section class="payment_main">
+		<?PHP
         $results = $conn->query("SELECT * FROM `account` WHERE `accountID` = '$current_payment_id' AND `userID` = '$current_user';");
         while($data = $results->fetch()){
-        ?>
-        <section id="payment_top">
-            <section id="payment"> 
-                <div id="payment_image"><img src="media/companies/<?PHP echo $data['accountName']; ?>.png"></div>
-                <div id="payment_type"><?PHP echo $data['accountName']; ?></div>
-                <table id="payment_account_table">
-                <h3>Add Payment (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h3>
-                    <tr><th>Name</th><th>Phone</th></tr>
-                    <tr><td style="width: 100px; max-width: 100px; "><?PHP echo $data['accountName']; ?></td><td style="width: 50px; max-width: 50px; "><?PHP echo $data['accountPhone']; ?></td></tr>
-                    <tr><th>Payment</th><th>Due Date</th></tr>
-                    <tr><td>$<?PHP echo $data['accountPayment']; ?></td><td><?PHP echo $data['accountDueDate']; ?></td></tr>
-                </table>
-                <form id="payment_form" name="payment_add" action="payments.php" method="POST">
-                        <input type="hidden" name="paymentcategory" style="display: none;" value="<?PHP echo $data['accountCategory']; ?>"><br>
-                        <input type="hidden" name="paymenttype" style="display: none;" value="<?PHP echo $data['accountType']; ?>">
-                        <input type="hidden" name="paymentname" style="display: none;" value="<?PHP echo $data['accountName']; ?>">
-                        <input type="hidden" name="accountid" style="display: none;" value="<?PHP echo $data['accountID']; ?>">
-                        <table>
-                            <tr>
-                                <td>Date <span style="color: red;">*</span></td><td><input type="date" name="paiddate" value="<?PHP echo $CURRENT_DATE; ?>" required></td>
-                                <td>Time <span style="color: red;">*</span></td><td><input type="time" name="paidtime" required></td>
-                            </tr>
-                            <tr>
-                                <td>Amount <span style="color: red;">*</span></td><td><input type="number" name="paidamount" size="10" min="0.00" step="0.01" required></td>
-                                <td>Type <span style="color: red;">*</span></td>
-                                <td><select id="paidtype" name="paidtype" required>
-                                        <option value=""></option>
-                                        <option value="Cash">Cash</option>
-                                        <option value="Card">Card</option>
-                                        <option value="Check">Check</option>
-                                        <option value="Online">Online</option>
-                                        <option value="Auto Pay">Auto Pay</option>
-                                        <option value="In Person">In Person</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr><td colspan="4"><input type="submit" name="paymentsubmit" value="Add Payment"></td></tr>
-                        </table>
-                </form>
-            </section>
-        </section>
+			?>
+			<div class="conatiner">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="d-flex justify-content-between">
+							<div>
+								<h4>Add Payment</h4>
+							</div>
+							<div class="d-flex">
+								<h6><?PHP echo $data['accountName']; ?></h6>
+								<img class="account_image" src="media/companies/<?PHP echo $data['accountName']; ?>.png">
+							</div>
+						</div>
+						<form class="form" name="payment_add" action="payments.php" method="POST">
+							<input type="hidden" name="paymentcategory" style="display: none;" value="<?PHP echo $data['accountCategory']; ?>"><br>
+							<input type="hidden" name="paymenttype" style="display: none;" value="<?PHP echo $data['accountType']; ?>">
+							<input type="hidden" name="paymentname" style="display: none;" value="<?PHP echo $data['accountName']; ?>">
+							<input type="hidden" name="accountid" style="display: none;" value="<?PHP echo $data['accountID']; ?>">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="accountName">Account</label>
+										<input type="text" class="form-control" id="accountName" value="<?PHP echo $data['accountName'];?>" aria-describedby="accountHelp" disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="accountPhone">Phone</label>
+										<input type="text" class="form-control" id="accountPhone" value="<?PHP echo $data['accountPhone'];?>" aria-describedby="phoneHelp" disabled>
+									</div>		
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="accountPayment">Payment</label>
+										<input type="text" class="form-control" id="accountPayment" value="<?PHP echo $data['accountPayment'];?>" aria-describedby="paymentHelp" disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="accountDueDate">Due Date</label>
+										<input type="text" class="form-control" id="accountDueDate" value="<?PHP echo $data['accountDueDate'];?>" aria-describedby="dueDateHelp" disabled>
+									</div>							
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="date">Date <span style="color: red;">*</span></label>
+										<input type="date" class="form-control" id="date" name="paiddate"  value="<?PHP echo $CURRENT_DATE;?>" aria-describedby="dateHelp" required>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="accountDueDate">Time <span style="color: red;">*</span></label>
+										<input type="time" class="form-control" id="accountDueDate"  name="paidtime" value="<?PHP echo $CURRENT_DATE;?>" aria-describedby="timeHelp" required>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="amount">Amount <span style="color: red;">*</span></label>
+										<input type="number" class="form-control" id="amount" name="paidamount"  value="<?PHP echo $CURRENT_DATE;?>" aria-describedby="amountHelp" min="0.00" step="0.01" required>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="type">Type <span style="color: red;">*</span></label>
+										<select class="form-control" id="type" name="paidtype" required>
+											<option value=""></option>
+											<option value="Cash">Cash</option>
+											<option value="Card">Card</option>
+											<option value="Check">Check</option>
+											<option value="Online">Online</option>
+											<option value="Auto Pay">Auto Pay</option>
+											<option value="In Person">In Person</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<button class="btn" id="payment_add_button" name="paymentsubmit" type="submit">Add Payment</button>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-6">
+						<div class="row">
+							<div id="YTD_graph"></div>
+						</div>
+					</div>
+				</div>
+			</div>
         <?PHP
         };
-        ?>
-        <section id="payment_bottom">
-            <section id="payment_activity">
-                <div id="YTD_graph"></div>
-                <h3>Payment Activity (MTD)</h3>
-                <table id="pay_activity_table">
-                    <tr><th></th><th>Date</th><th>Type</th><th>Amount</th><th>Paid Type</th><th></th><th></th><th></th><th></th></tr>
-                    <?PHP
-                        $results = $conn->query("SELECT * FROM `payment` WHERE MONTH(paymentDate) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `paymentCategory` !='Living' ORDER BY paymentDate DESC;");
-                        while($data = $results->fetch()){
-                            $paymentID = $data['paymentID'];
-                            $paymentDate = $data['paymentDate'];
-                            $paymentName = $data['paymentName'];
-                            $paymentPaidAmount = $data['paymentPaidAmount'];
-                            $paidType = $data['paidType'];
-                            $accountID = $data['accountID'];
-
-                            echo "<tr><td><img src=\"media/companies/$paymentName.png\"></td><td>$paymentDate</td><td>$paymentName</td><td>$$paymentPaidAmount</td><td>$paidType</td>
-                            <td>
-                                <form id=\"payment_edit\" name=\"payment_edit\" action=\"editpayment.php\" method=\"POST\">
-                                    <input type=\"hidden\" name=\"payeditID\" value=\"$paymentID\">
-                                    <button><img src=\"media/edit.ico\"></button>
-                                </form>
-                            </td>
-                            <td>
-                                <form id=\"payment_delete\" name=\"payment_delete\" action=\"deletepayconfirm.php\" method=\"POST\">
-                                    <input type=\"hidden\" name=\"paydeleteID\" value=\"$paymentID\">
-                                    <button><img src=\"media/delete.ico\"></button>
-                                </form>
-                            </td>
-                            <td>
-                                <form id=\"payment_print\" name=\"payment_print\" action=\"payments.php\" method=\"POST\">
-                                    <input type=\"hidden\" name=\"payprintID\" value=\"$paymentID\">
-                                    <button onclick=\"windowOpen()\"><img src=\"media/print.png\"></button>
-                                </form>                           
-                            </td>
-                            <td>
-                                <form id=\"payment_envelope\" name=\"payment_envelope\" action=\"payments.php\" method=\"POST\">
-                                    <input type=\"hidden\" name=\"payenvelopeID\" value=\"$accountID\">
-                                    <button><img src=\"media/envelope.png\"></button>
-                                </form>
-                            </td>
-                            </tr>";
-                        };?>
-                </table>
-            </section>
-        </section>
-    </section>
+		?>
+		<div class="container">
+			<div class="row" style="margin-top: 25px;">
+				<table class="table table-striped table-sm">
+					<h4>Payment Activity (MTD)</h4>
+					<tr><th></th><th>Date</th><th>Type</th><th>Amount</th><th>Paid Type</th><th></th><th></th><th></th><th></th></tr>
+					<?PHP
+					$results = $conn->query("SELECT * FROM `payment` WHERE MONTH(paymentDate) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `paymentCategory` !='Living' ORDER BY paymentDate DESC;");
+					while($data = $results->fetch()){
+						$paymentID = $data['paymentID'];
+						$paymentDate = $data['paymentDate'];
+						$paymentName = $data['paymentName'];
+						$paymentPaidAmount = $data['paymentPaidAmount'];
+						$paidType = $data['paidType'];
+						$accountID = $data['accountID'];
+						echo "
+						<tr>
+							<td><img class=\"payment_img\" src=\"media/companies/$paymentName.png\"></td><td>$paymentDate</td><td>$paymentName</td><td>$$paymentPaidAmount</td><td>$paidType</td>
+							<td>
+								<form name=\"payment_edit\" action=\"editpayment.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"payeditID\" value=\"$paymentID\">
+									<button class=\"account_button\"><img class=\"payment_img\" src=\"media/edit.ico\"></button>
+								</form>
+							</td>
+							<td>
+								<form name=\"payment_delete\" action=\"deletepayconfirm.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"paydeleteID\" value=\"$paymentID\">
+									<button class=\"account_button\"><img class=\"payment_img\" src=\"media/delete.ico\"></button>
+								</form>
+							</td>
+							<td>
+								<form name=\"payment_print\" action=\"payments.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"payprintID\" value=\"$paymentID\">
+									<button class=\"account_button\" onclick=\"windowOpen()\"><img class=\"payment_img\" src=\"media/print.png\"></button>
+								</form>                           
+							</td>
+							<td>
+								<form name=\"payment_envelope\" action=\"payments.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"payenvelopeID\" value=\"$accountID\">
+									<button class=\"account_button\"><img class=\"payment_img\" src=\"media/envelope.png\"></button>
+								</form>
+							</td>
+						</tr>";
+					};?>
+				</table>
+			</div>
+		</div>
+	</section>
+	<script>
+		window.onload = function() {
+			// Bill Chart
+			var chart = new CanvasJS.Chart("YTD_graph", {
+				theme: "light2",
+				animationEnabled: true,
+				title: {
+					text: "Payment YTD Graph"
+				},
+				data: [{
+					type: "doughnut",
+					yValueFormatString: "#,##0.00",
+					indexLabel: "{label} ({y})",
+					dataPoints: <?php echo json_encode($YTD_data, JSON_NUMERIC_CHECK); ?>
+				}]
+			});
+			chart.render();
+		}
+	</script>
 <?PHP
 };
 include("includes/footer.php");
 ?>
-    <script>
-        window.onload = function() {
-            // Bill Chart
-            var chart = new CanvasJS.Chart("YTD_graph", {
-                theme: "light2",
-                animationEnabled: true,
-                title: {
-                    text: "Payment Breakdown YTD"
-                },
-                data: [{
-                    type: "doughnut",
-                    yValueFormatString: "#,##0.00",
-                    indexLabel: "{label} ({y})",
-                    dataPoints: <?php echo json_encode($YTD_data, JSON_NUMERIC_CHECK); ?>
-                }]
-            });
-            chart.render();
-        }
-    </script>

@@ -9,8 +9,8 @@ CREATE TABLE personal (
     firstName varchar(255),
     lastName varchar(255),
    	birthDate date,
-    userEmail varchar(255),
 	userName varchar(30),
+    userEmail varchar(255),
     userPassword varchar(260),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 
@@ -119,7 +119,7 @@ values('Bill', 'Storage','Decatur Storage', 'A0128', 'P.O. Box 413', '', 'Decatu
 insert into account(accountCategory, accountType, accountName, accountNumber, accountStreet, accountStreet2, accountCity, accountState, accountZip, accountPhone, accountBeginAmount, accountPayment,accountDueDate, accountDueTime, userID)
 values('Bill', 'Phone','ATT', '243019181920', 'P.O. Box 6416', '', 'Carol Stream', 'IL', '60197' ,'800-331-0500', 0, 111.81, 02, str_to_date('9:00 AM','%l:%i %p'), 1);
 insert into account(accountCategory, accountType, accountName, accountNumber, accountStreet, accountStreet2, accountCity, accountState, accountZip, accountPhone, accountBeginAmount, accountPayment,accountDueDate, accountDueTime, userID)
-values('Bill', 'Car Insurnace','Progressive', '932576944', '6300 Wilson Mills Rd', '', 'Mayfield Village', 'OH', '44143' ,'888-671-4405', 0, 61.51, 03, str_to_date('9:00 AM','%l:%i %p'), 1);
+values('Bill', 'Car Insurance','Progressive', '932576944', '6300 Wilson Mills Rd', '', 'Mayfield Village', 'OH', '44143' ,'888-671-4405', 0, 61.51, 03, str_to_date('9:00 AM','%l:%i %p'), 1);
 insert into account(accountCategory, accountType, accountName, accountNumber, accountStreet, accountStreet2, accountCity, accountState, accountZip, accountPhone, accountBeginAmount, accountPayment,accountDueDate, accountDueTime, userID)
 values('Bill', 'Entertainment','Netflix', '', '', '', '', '', '' ,'', 0, 12.99, 11, str_to_date('9:00 AM','%l:%i %p'), 1);
 insert into account(accountCategory, accountType, accountName, accountNumber, accountStreet, accountStreet2, accountCity, accountState, accountZip, accountPhone, accountBeginAmount, accountPayment,accountDueDate, accountDueTime, userID)
