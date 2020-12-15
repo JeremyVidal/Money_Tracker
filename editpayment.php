@@ -57,8 +57,8 @@ function display_form(){
 			<div class="card-header d-flex justify-content-between">
 				<div><h5><img id="edit_pay_img" src="media/update.png">&nbsp;&nbsp;Update RECORD?</h5></div>
 				<div class="d-flex">
-					<img class="edit_pay_img" src="media/<?PHP echo $data['paymentType']; ?>.png">
 					<p><?PHP echo $data['paymentName']; ?></p>
+					<img class="edit_pay_img" src="media/<?PHP echo $data['paymentType']; ?>.png">
 				</div>
 			</div>
 			<div class="card-body">

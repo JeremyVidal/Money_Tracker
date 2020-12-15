@@ -59,18 +59,18 @@ function display_form(){
     global $CURRENT_DATE;
     
     //bill_graph
-    $results = $conn->query("SELECT sum(`paymentPaidAmount`) as YTD, paymentName FROM payment WHERE YEAR(`paymentDate`) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user'  AND `paymentCategory` !='Living' GROUP BY paymentName;");
+    $results = $conn->query("SELECT sum(`paymentPaidAmount`) as MTD, paymentName FROM payment WHERE MONTH(`paymentDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user'  AND `paymentCategory` !='Living' GROUP BY paymentName;");
     $YTD_data = array();
     while($data = $results->fetch()){
         $paymentName = $data['paymentName'];
-        $paymentPaidAmount = $data['YTD'];
+        $paymentPaidAmount = $data['MTD'];
         $YTD_data[] = array("label"=>$paymentName, "y"=>$paymentPaidAmount);
     }
 	?>
 	<style>
 	/* Payments */
 	#payment_add_button {background-color: #4f81bc; color: white; margin-left: 15px;}
-	#YTD_graph {float: right; height: 220px; width: 350px;}
+	#MTD_graph {float: right; height: 220px; width: 350px;}
 	.payment_main {position: absolute; width: 87%; margin-left: 16%; padding: 25px; display: inline-block;}
 	.account_image {width: 60px;}
 	.account_button {border: none; background-color: white;}
@@ -102,7 +102,7 @@ function display_form(){
 							</form>
 							</li>";
 						};
-						echo "</ul>";
+						echo "</ul><br/>";
 					};
 				?>
 			</div>
@@ -114,7 +114,7 @@ function display_form(){
         while($data = $results->fetch()){
 			?>
 			<div class="conatiner">
-				<div class="row">
+				<div class="row d-flex justify-content-between">
 					<div class="col-lg-6">
 						<div class="d-flex justify-content-between">
 							<div>
@@ -159,6 +159,14 @@ function display_form(){
 								</div>
 							</div>
 							<hr />
+							<div class="d-flex justify-content-between">
+								<div>
+									
+								</div>
+								<div>
+									<span style="color: red; font-size: 12px;">*</span><span style="font-size: 12px;"> = required</span>
+								</div>
+								</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
@@ -185,12 +193,10 @@ function display_form(){
 										<label for="type">Type <span style="color: red;">*</span></label>
 										<select class="form-control" id="type" name="paidtype" required>
 											<option value=""></option>
-											<option value="Cash">Cash</option>
 											<option value="Card">Card</option>
 											<option value="Check">Check</option>
 											<option value="Online">Online</option>
 											<option value="Auto Pay">Auto Pay</option>
-											<option value="In Person">In Person</option>
 										</select>
 									</div>
 								</div>
@@ -200,9 +206,9 @@ function display_form(){
 							</div>
 						</form>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="row">
-							<div id="YTD_graph"></div>
+							<div id="MTD_graph"></div>
 						</div>
 					</div>
 				</div>
@@ -212,13 +218,14 @@ function display_form(){
 		?>
 		<div class="container">
 			<div class="row" style="margin-top: 25px;">
-				<table class="table table-striped table-sm">
+				<table class="table table-sm">
 					<h4>Payment Activity (MTD)</h4>
 					<tr><th></th><th>Date</th><th>Type</th><th>Amount</th><th>Paid Type</th><th></th><th></th><th></th><th></th></tr>
 					<?PHP
 					$results = $conn->query("SELECT * FROM `payment` WHERE MONTH(paymentDate) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `paymentCategory` !='Living' ORDER BY paymentDate DESC;");
 					while($data = $results->fetch()){
 						$paymentID = $data['paymentID'];
+						$paymentCategory = $data['paymentCategory'];
 						$paymentDate = $data['paymentDate'];
 						$paymentName = $data['paymentName'];
 						$paymentPaidAmount = $data['paymentPaidAmount'];
@@ -239,18 +246,24 @@ function display_form(){
 									<button class=\"account_button\"><img class=\"payment_img\" src=\"media/delete.ico\"></button>
 								</form>
 							</td>
-							<td>
-								<form name=\"payment_print\" action=\"payments.php\" method=\"POST\">
-									<input type=\"hidden\" name=\"payprintID\" value=\"$paymentID\">
-									<button class=\"account_button\" onclick=\"windowOpen()\"><img class=\"payment_img\" src=\"media/print.png\"></button>
-								</form>                           
-							</td>
-							<td>
-								<form name=\"payment_envelope\" action=\"payments.php\" method=\"POST\">
-									<input type=\"hidden\" name=\"payenvelopeID\" value=\"$accountID\">
-									<button class=\"account_button\"><img class=\"payment_img\" src=\"media/envelope.png\"></button>
-								</form>
-							</td>
+						";
+						if ($paymentCategory === "Collection"){
+							echo"
+								<td>
+									<form name=\"payment_print\" action=\"payments.php\" method=\"POST\">
+										<input type=\"hidden\" name=\"payprintID\" value=\"$paymentID\">
+										<button class=\"account_button\" onclick=\"windowOpen()\"><img class=\"payment_img\" src=\"media/print.png\"></button>
+									</form>                           
+								</td>
+								<td>
+									<form name=\"payment_envelope\" action=\"payments.php\" method=\"POST\">
+										<input type=\"hidden\" name=\"payenvelopeID\" value=\"$accountID\">
+										<button class=\"account_button\"><img class=\"payment_img\" src=\"media/envelope.png\"></button>
+									</form>
+								</td>
+							";
+						}
+						echo"
 						</tr>";
 					};?>
 				</table>
@@ -260,11 +273,11 @@ function display_form(){
 	<script>
 		window.onload = function() {
 			// Bill Chart
-			var chart = new CanvasJS.Chart("YTD_graph", {
+			var chart = new CanvasJS.Chart("MTD_graph", {
 				theme: "light2",
 				animationEnabled: true,
 				title: {
-					text: "Payment YTD Graph"
+					text: "Payments MTD"
 				},
 				data: [{
 					type: "doughnut",

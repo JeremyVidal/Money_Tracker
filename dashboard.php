@@ -3,14 +3,14 @@ include("includes/header.php");
 $current_user =  $_SESSION['userID'];
 
 //category_graph
-$results = $conn->query("SELECT sum(`paymentPaidAmount`) as YTD, paymentCategory FROM payment WHERE YEAR(`paymentDate`) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user' GROUP BY paymentCategory;");
+$results = $conn->query("SELECT sum(`paymentPaidAmount`) as YTD, paymentCategory FROM payment WHERE MONTH(`paymentDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' GROUP BY paymentCategory;");
 while($data = $results->fetch()){
     $paymentCategory = $data['paymentCategory'];
     $paymentPaidAmount = $data['YTD'];
     $YTD_data[] = array("label"=>$paymentCategory, "y"=>$paymentPaidAmount);
 }
 //income_graph
-$results = $conn->query("SELECT sum(`incomeGross`) as Gross, sum(`incomeNet`) as Net FROM income WHERE YEAR(`incomeDate`) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user';");
+$results = $conn->query("SELECT sum(`incomeGross`) as Gross, sum(`incomeNet`) as Net FROM income WHERE MONTH(`incomeDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user';");
 while($data = $results->fetch()){
     $incomeGross = $data['Gross'];
     $incomeNet = $data['Net'];
@@ -172,7 +172,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Categories (YTD) Graph"
+                text: "Categories (MTD)"
             },
             data: [{
                 type: "pie",
@@ -189,7 +189,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Income (YTD) Graph"
+                text: "Income (MTD)"
             },
             data: [{
                 type: "funnel",
@@ -205,7 +205,7 @@ while($data = $results->fetch()){
             // colorSet: "greenShades",
             animationEnabled: true,
             title: {
-                text: "Payments (MTD) Graph"
+                text: "Payments (MTD)"
             },
             data: [{
                 type: "doughnut",

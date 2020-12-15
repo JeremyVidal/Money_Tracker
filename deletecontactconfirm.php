@@ -30,8 +30,8 @@
 				<div class="card-header d-flex justify-content-between">
 					<h5><img id="contact_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete RECORD?</h5>
 					<div class="d-flex">
-						<img class="contact_delete_img" src="media/companies/<?PHP echo $data['contactName']; ?>.png">
 						<p><?PHP echo $data['contactName']; ?></p>     
+						<img class="contact_delete_img" src="media/companies/<?PHP echo $data['contactName']; ?>.png">
 					</div>
 				</div>
 				<div class="card-body">
@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<div class="card-footer d-flex justify-content-between align-items-center">
-					<input type="submit" class="btn" name="contactdeletesubmit" value="Delete Payment">
+					<input type="submit" class="btn" name="contactdeletesubmit" value="Delete Contact">
 					<a href="contact.php"  id="contact_delete_cancel">Cancel</a>
 				</div>       
             </form>

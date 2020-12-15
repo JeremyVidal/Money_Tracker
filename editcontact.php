@@ -43,10 +43,11 @@ function display_form(){
 	<div class="card">
 		<form class="form" name="contact_edit_form" action="editcontact.php" method="POST">
 			<input type="hidden" name="contactupdateID" value="<?PHP echo $data['contactID']; ?>">
+			<div class="card-header d-flex justify-content-between">
 				<h5><img id="contact_editimg" src="media/update.png">&nbsp;&nbsp;Update CONTACT?</h5>
 				<div class="d-flex">
-					<img class="contact_edit_img" src="media/companies/<?PHP echo $data['contactName']; ?>.png">
 					<p><?PHP echo $data['contactName']; ?></p>
+					<img class="contact_edit_img" src="media/companies/<?PHP echo $data['contactName']; ?>.png">
 				</div>
 			</div>
 			<div class="card-body">

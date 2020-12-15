@@ -29,8 +29,8 @@
 				<div class="card-header d-flex justify-content-between">
 					<h5><img id="income_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete INCOME?</h5>
 					<div class="d-flex">
-						<img class="income_delete_img" src="media/Income.png">
 						<p><?PHP echo $data['incomeSource']; ?></p>      
+						<img class="income_delete_img" src="media/Income.png">
 					</div>
 				</div>
 				<div class="card-body">

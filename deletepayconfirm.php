@@ -41,8 +41,8 @@
 				<div class="card-header d-flex justify-content-between">
 					<h5><img id="pay_deleteimg" src="media/delete.ico">&nbsp;&nbsp;Delete record?</h5>
 					<div class="d-flex">
-						<img class="pay_delete_img" src="media/<?PHP echo $data['paymentType']; ?>.png">
 						<p><?PHP echo $data['paymentName']; ?></p>       
+						<img class="pay_delete_img" src="media/<?PHP echo $data['paymentType']; ?>.png">
 					</div>
 				</div>
 				<div class="card-body">

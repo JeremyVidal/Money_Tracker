@@ -65,6 +65,7 @@ else if (isset($_POST['accountdeleteID'])){
 <body>
 	<style> 
 	.settings_img {width: 20px}
+	.settings_button {border: none; background-color: white;}
 
 	/* #header {display: none;}
 	#navigation {display: none;} */
@@ -92,6 +93,7 @@ else if (isset($_POST['accountdeleteID'])){
 	.user-detail img{width:150px;}
 	.user-detail h5{margin:15px 0px 5px 0px;}
 	.user-footer-detail{padding:15px 0px; background-color: #4f81bc;}
+	#account_add_submit {background-color: #4f81bc; color: white; margin-left: 15px;}
 	}
 	</style>
 	<div class="d-flex" id="wrapper">
@@ -154,7 +156,7 @@ else if (isset($_POST['accountdeleteID'])){
 									$userEmail = $data['userEmail'];
 									$createdAt = $data['createdAt'];
 									?>
-									<div class="row justify-content-center" style="margin-top: 25px;">
+									<div class="row justify-content-center" style="margin: 25px;">
 										<div class="col-lg-5 main-section">
 											<div class="row">
 												<div class="col-sm-12 profile-header text-center" style="padding-top: 20px; color: white;"><h3>User Information</h3></div>
@@ -187,7 +189,6 @@ else if (isset($_POST['accountdeleteID'])){
 																<div class="form-group">
 																	<label>Birthdate </label>
 																	<input type="date" class="form-control mb-4" name="ledgerdate" value="<?PHP echo $birthDate; ?>" >
-
 																</div>	
 															</div>	
 															<div class="col-lg-6">
@@ -198,7 +199,6 @@ else if (isset($_POST['accountdeleteID'])){
 															</div>
 														</div>
 														<div class="row">
-
 															<div class="col-lg-12">
 																<div class="form-group">
 																	<label>Email </label>
@@ -255,122 +255,198 @@ else if (isset($_POST['accountdeleteID'])){
 					require('includes/db_conn.php');
 					$current_user =  $_SESSION['userID'];
 					?>
-					<div class="row">
-						<div class="col-lg-12">
-							<section id="account_info">
-								<h3>Add Account (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h3>
-								<form id="account_add_form" name="account_add_form" action="settings.php" method="POST">
-								<table class="table table-striped table-sm">
-									<tr><td>Category <span style="color: red;">*</span></td>
-									<td><input list="account_categories" name="account_category_add" id="account_category_add" required>
-									<datalist id="account_categories">
-										<option value="Bill">
-										<option value="Collection">
-									</datalist></td>
-									<td>Type <span style="color: red;">*</span></td>
-									<td><input list="account_types" name="account_type_add" id="account_type_add" required>
-									<datalist id="account_types">
-										<option value="Rent">
-										<option value="Electric">
-										<option value="Gas(house)">
-										<option value="Water">
-										<option value="Loan">
-										<option value="Previous">
-										<option value="Car Insurance">
-										<option value="Storage">
-										<option value="Phone">
-										<option value="Judgement">
-									</datalist></td></tr>
-									<tr><td>Name <span style="color: red;">*</span></td><td><input type='text' id="account_name_add" name="account_name_add" required></td>
-									<td>Phone <span style="font-size: 10px;">(no characters)</span></td><td><input type='phone' id="account_phone_add" name="account_phone_add" maxlength="10"></td>
-									<td>Acct #</td><td><input type='text' id="account_number_add" name="account_number_add"></td></tr>
-									<tr><td>Street</td><td><input type='text' id="account_street_add" name="account_street_add"></td>
-									<td>Street2</td><td><input type='text' id="account_street2_add" name="account_street2_add"></td></tr>
-									<tr><td>City</td><td><input type='text' id="account_city_add" name="account_city_add"></td>
-									<td>State <span style="font-size: 10px;">(abbrev)</span></td><td><input type='text' id="account_state_add" name="account_state_add" maxlength="2"></td>
-									<td>Zip</td><td><input type='text' id="account_zip_add" name="account_zip_add" maxlength="5"></td></tr>
-									<tr><td>Begin Amount</td><td><input type='number' id="account_beginamount_add" name="account_beginamount_add" min="0.00" step="0.01"></td>
-									<td>Payment <span style="color: red;">*</span></td><td><input type='number' id="account_payment_add" name="account_payment_add" min="0.00" step="0.01" required></td></tr>
-									<tr><td>Day Due <span style="color: red;">*</span></td>
-									
-									<td>
-									<select id="account_duedate_add" name="account_duedate_add" required>
-										<option value="1">1st</option>
-										<option value="2">2nd</option>
-										<option value="3">3rd</option>
-										<option value="4">4th</option>
-										<option value="5">5th</option>
-										<option value="6">6th</option>
-										<option value="7">7th</option>
-										<option value="8">8th</option>
-										<option value="9">9th</option>
-										<option value="10">10th</option>
-										<option value="11">11th</option>
-										<option value="12">12th</option>
-										<option value="13">13th</option>
-										<option value="14">14th</option>
-										<option value="15">15th</option>
-										<option value="16">16th</option>
-										<option value="17">17th</option>
-										<option value="18">18th</option>
-										<option value="19">19th</option>
-										<option value="20">20th</option>
-										<option value="21">21st</option>
-										<option value="22">22nd</option>
-										<option value="23">23rd</option>
-										<option value="24">24th</option>
-										<option value="25">25th</option>
-										<option value="26">26th</option>
-										<option value="27">27th</option>
-										<option value="28">28th</option>
-										<option value="29">29th</option>
-										<option value="30">30th</option>
-										<option value="31">31st</option>
-									</select>
-									</td>
-									<td>Time Due <span style="color: red;">*</span></td><td><input type='time' id="account_duetime_add" name="account_duetime_add" required></td></tr>
-									<tr><td><input type="submit" name="account_add_submit" value="Add Account"></td></tr>
-								</table>
-								</form>
-							</section>
-						</div>
-					</div>
-					<div class="conatiner">
+					<div class="container" style="margin-top: 25px;">
 						<div class="row">
-							<div class="col-lg-6">
-								<section id="accounts">
-									<h3>Current Accounts</h3>
-									<table class="table table-striped table-sm">
-										<tr><th>Category</th><th></th><th>Type</th><th></th><th>Name</th><th>Acct Number</th><th>Payment</th><th>Day Due</th><th></th></tr>
-										<?PHP
-										$results = $conn->query("SELECT * FROM `account` WHERE `userID` = '$current_user' ORDER BY `accountDueDate`;");
-										while($data = $results->fetch()){
-											$accountID = $data['accountID'];
-											$accountCategory = $data['accountCategory'];
-											$accountType = $data['accountType'];
-											$accountName = $data['accountName'];
-											$accountNumber = $data['accountNumber'];
-											$accountPayment = $data['accountPayment'];
-											$accountDueDate = $data['accountDueDate'];
-											if ($accountPayment == NULL){
-												$accountSymbol = '';
-											}
-											else{
-												$accountSymbol = "$";
-											}
-											echo "<tr>
-													<td>$accountCategory</td><td><img class=\"settings_img\" src=\"media/$accountType.png\"></td><td>$accountType</td><td><img class=\"settings_img\" src=\"media/companies/$accountName.png\"></td><td>$accountName</td><td>$accountNumber</td><td>$accountSymbol $accountPayment</td><td style=\"text-align: center;\">$accountDueDate</td>
-													<td>
-														<form id=\"account_delete\" name=\"account_delete\" action=\"\" method=\"POST\">
-															<input type=\"hidden\" name=\"accountdeleteID\" value=\"$accountID\">
-															<button class=\"settings_button\"><img class=\"settings_img\" src=\"media/delete.ico\"></button>
-														</form>
-													</td>
-													<td>
-												</tr>";
-										};?>
-									</table>
-								</section>
+							<div class="col-lg-12">
+									<!-- <section id="account_info"> -->
+								<div class="d-flex justify-content-between">
+									<div>
+										<h3>Add Account <span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<form id="account_add_form" name="account_add_form" action="settings.php" method="POST">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_category_add">Category <span style="color: red;">*</span></label>
+										<input list="account_categories" class="form-control" name="account_category_add" id="account_category_add" required>
+											<datalist id="account_categories">
+												<option value="Bill">
+												<option value="Collection">
+											</datalist>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+									<label for="account_type_add">Type <span style="color: red;">*</span></label>
+									<input list="account_types" class="form-control" name="account_type_add" id="account_type_add" required>
+										<datalist id="account_types">
+											<option value="Rent">
+											<option value="Electric">
+											<option value="Gas(house)">
+											<option value="Water">
+											<option value="Loan">
+											<option value="Previous">
+											<option value="Car Insurance">
+											<option value="Storage">
+											<option value="Phone">
+											<option value="Judgement">
+										</datalist>
+									</div>
+								</div>
+							</div>									
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_name_add">Name <span style="color: red;">*</span></label>
+										<input type='text' id="account_name_add" class="form-control" name="account_name_add" required>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_phone_add">Phone <span style="font-size: 10px;">(no characters)</span></label>
+										<input type='phone' id="account_phone_add" class="form-control" name="account_phone_add" maxlength="10">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_number_add">Acct #</label>
+										<input type='text' id="account_number_add" class="form-control" name="account_number_add">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="account_name_add">Street </label>
+										<input type='text' id="account_street_add" class="form-control" name="account_street_add">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="account_street2_add">Street2 </label>
+										<input type='text' id="account_street2_add" class="form-control" name="account_street2_add">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_city_add">City</label>
+										<input type='text' id="account_city_add" class="form-control" name="account_city_add">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_state_add">State <span style="font-size: 10px;">(abbrev)</span></label>
+										<input type='text' id="account_state_add" class="form-control" name="account_state_add" maxlength="2">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="account_zip_add">Zip </label>
+										<input type='text' id="account_zip_add" class="form-control" name="account_zip_add" maxlength="5">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label for="account_beginamount_add">Begin Amount </label>
+										<input type='number' id="account_beginamount_add" class="form-control" name="account_beginamount_add" min="0.00" step="0.01">
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label for="account_payment_add">Payment <span style="color: red;">*</span></label>
+										<input type='number' id="account_payment_add" class="form-control" name="account_payment_add" min="0.00" step="0.01" required>
+									</div>
+								</div>
+							<!-- </div>
+							<div class="row"> -->
+								<div class="col-lg-3">
+									<div class="form-group">
+									<label for="account_duedate_add">Day Due <span style="color: red;">*</span></label>
+										<select id="account_duedate_add" class="form-control" name="account_duedate_add" required>
+											<option value="01">1st</option>
+											<option value="02">2nd</option>
+											<option value="03">3rd</option>
+											<option value="04">4th</option>
+											<option value="05">5th</option>
+											<option value="06">6th</option>
+											<option value="07">7th</option>
+											<option value="08">8th</option>
+											<option value="09">9th</option>
+											<option value="10">10th</option>
+											<option value="11">11th</option>
+											<option value="12">12th</option>
+											<option value="13">13th</option>
+											<option value="14">14th</option>
+											<option value="15">15th</option>
+											<option value="16">16th</option>
+											<option value="17">17th</option>
+											<option value="18">18th</option>
+											<option value="19">19th</option>
+											<option value="20">20th</option>
+											<option value="21">21st</option>
+											<option value="22">22nd</option>
+											<option value="23">23rd</option>
+											<option value="24">24th</option>
+											<option value="25">25th</option>
+											<option value="26">26th</option>
+											<option value="27">27th</option>
+											<option value="28">28th</option>
+											<option value="29">29th</option>
+											<option value="30">30th</option>
+											<option value="31">31st</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label for="account_payment_add">Time Due <span style="color: red;">*</span></label>
+										<input type='time' id="account_duetime_add" class="form-control" name="account_duetime_add" required>
+									</div>
+								</div>
+							</div>
+							<button class="btn" type="submit" id="account_add_submit" name="account_add_submit">Add Account</button>
+						</form>
+						<br/>
+						<hr/>
+						<div class="row">
+							<div class="col-lg-12">
+								<h3>Current Accounts</h3>
+								<table class="table table-sm">
+									<tr><th>Category</th><th></th><th>Type</th><th></th><th>Name</th><th>Acct Number</th><th>Payment</th><th>Day Due</th><th></th></tr>
+									<?PHP
+									$results = $conn->query("SELECT * FROM `account` WHERE `userID` = '$current_user' ORDER BY `accountDueDate`;");
+									while($data = $results->fetch()){
+										$accountID = $data['accountID'];
+										$accountCategory = $data['accountCategory'];
+										$accountType = $data['accountType'];
+										$accountName = $data['accountName'];
+										$accountNumber = $data['accountNumber'];
+										$accountPayment = $data['accountPayment'];
+										$accountDueDate = $data['accountDueDate'];
+										if ($accountPayment == NULL){
+											$accountSymbol = '';
+										}
+										else{
+											$accountSymbol = "$";
+										}
+										echo "<tr>
+												<td>$accountCategory</td><td><img class=\"settings_img\" src=\"media/$accountType.png\"></td><td>$accountType</td><td><img class=\"settings_img\" src=\"media/companies/$accountName.png\"></td><td>$accountName</td><td>$accountNumber</td><td>$accountSymbol $accountPayment</td><td style=\"text-align: center;\">$accountDueDate</td>
+												<td>
+													<form id=\"account_delete\" name=\"account_delete\" action=\"\" method=\"POST\">
+														<input type=\"hidden\" name=\"accountdeleteID\" value=\"$accountID\">
+														<button class=\"settings_button\"><img class=\"settings_img\" src=\"media/delete.ico\"></button>
+													</form>
+												</td>
+											</tr>";
+									};?>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -394,5 +470,4 @@ else if (isset($_POST['accountdeleteID'])){
   	</script>
 
 </body>
-
 </html>

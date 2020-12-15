@@ -56,7 +56,14 @@ function display_form(){
 		<div class="row">
 			<div class="col-lg-6">
 				<form class="form" name="income_form" action="income.php" method="POST">
-					<h4>Add Income (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h4>
+				<div class="d-flex justify-content-between">
+						<div>	
+							<h4>Add Income</h4>
+						</div>
+						<div>
+							<span style="color: red; font-size: 12px;">*</span><span style="font-size: 12px;"> = required</span>
+						</div>
+					</div>
 					<br />
 					<div class="row">
 						<div class="col-lg-6">

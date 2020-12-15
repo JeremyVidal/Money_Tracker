@@ -28,11 +28,11 @@ function display_form(){
     global $CURRENT_DATE;
 
     //category_graph
-    $results = $conn->query("SELECT sum(`paymentPaidAmount`) as YTD, paymentType FROM payment WHERE YEAR(`paymentDate`) = YEAR(CURRENT_DATE()) AND `userID` = '$current_user' AND `paymentCategory` = 'Living' GROUP BY paymentType;");
+    $results = $conn->query("SELECT sum(`paymentPaidAmount`) as MTD, paymentType FROM payment WHERE MONTH(`paymentDate`) = MONTH(CURRENT_DATE()) AND `userID` = '$current_user' AND `paymentCategory` = 'Living' GROUP BY paymentType;");
     $YTD_data = array();
     while($data = $results->fetch()){
         $paymentType = $data['paymentType'];
-        $paymentPaidAmount = $data['YTD'];
+        $paymentPaidAmount = $data['MTD'];
         $YTD_data[] = array("label"=>$paymentType, "y"=>$paymentPaidAmount);
     }
 	?>
@@ -49,7 +49,15 @@ function display_form(){
 		<div class="row">
 			<div class="col-lg-6">
 				<form  class="form" name="ledger_add" action="ledger.php" method="POST">
-					<h4>Add Transaction (<span style="color: red; font-size: 12px;">*</span> <span style="font-size: 12px;">required</span>)</h4>
+					<div class="d-flex justify-content-between">
+						<div>	
+							<h4>Add Transaction</h4>
+						</div>
+						<div>
+							<span style="color: red; font-size: 12px;">*</span><span style="font-size: 12px;"> = required</span>
+						</div>
+					</div>
+				
 					<br />
 					<input type="hidden" name="paymentcategory" value="Living">
 					<div class="row">
@@ -106,12 +114,9 @@ function display_form(){
 								<label>Paid Type <span style="color: red;">*</span></label>
 								<select class="browser-default custom-select mb-4" name="ledgerpaidtype" required>
 									<option value=""></option>
-									<option value="Cash">Cash</option>
 									<option value="Card" selected>Card</option>
 									<option value="Check">Check</option>
-									<option value="Online">Online</option>
 									<option value="Auto Pay">Auto Pay</option>
-									<option value="In Person">In Person</option>
 								</select>
 							</div>
 						</div>
@@ -178,7 +183,7 @@ function display_form(){
                 // colorSet: "greenShades",
                 animationEnabled: true,
                 title: {
-                    text: "Living Type YTD"
+                    text: "Living Type MTD"
                 },
                 data: [{
                     type: "pie",
